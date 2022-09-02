@@ -10,12 +10,11 @@ const Feed = () => {
         console.log('first')
         const data = await fetchPosts()
         console.log(data)
-        if (data !== undefined){
-            setPosts(data)
-
+        if (data.data === undefined){
+            console.log('empty posts return value')
         }
         else {
-            console.log('empty posts return value')
+            setPosts(data)
         }
     }
     fetch()
