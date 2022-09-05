@@ -1,29 +1,12 @@
 import { useState } from "react"
 import login from "../API/login"
 
-type LoginFormProps = {
-  setJwt: Function
-}
-
-const LoginForm = (props: LoginFormProps) => {
+const LoginForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = async () => {
-      try {
-        const body = {
-        email,
-        password
-      }
-      const jwt = await login(body)
-      if (jwt !== undefined && jwt.access_token !== undefined){
-        props.setJwt(jwt.access_token)
-      } else {
-        console.log('invalid jwt:' + jwt)
-      }
-    } catch(error){
-      console.log(error)
-    }
+
   }
 
   return (
