@@ -1,6 +1,6 @@
-export type AuthState = {
+export interface IAuthState {
   jwt: string;
-};
+}
 
 export type AuthStateAction = {
   type: string;

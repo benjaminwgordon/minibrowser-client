@@ -1,14 +1,20 @@
 import React from 'react'
-import PostBody from './PostBody'
-import PostFooter from './PostFooter'
-import PostHeader from './PostHeader'
 
-const Post = () => {
+interface IPostProps {
+  id: number
+  title: string
+  content: string
+  authorId: number
+  author: string
+  description: string
+}
+
+const Post = (props: IPostProps) => {
   return (
     <div>
-        <PostHeader/>
-        <PostBody/>
-        <PostFooter/>
+        <p>{props.title}</p>
+        <p>{props.content}</p>
+        <p>{props.description}</p>
     </div>
   )
 }

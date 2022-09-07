@@ -1,19 +1,22 @@
-import React from 'react'
-import { AuthState } from '../types'
-import {reducer} from './reducer'
+import React, { createContext, useState } from 'react'
 
-const initialState: AuthState = {jwt: ""}
+interface IAuthContext{
+  jwt: string
+  updateJwt: (newJwt:string) => void
+}
 
-export const AuthContext = React.createContext({
-    state: initialState,
-    dispatch: () => null
-})
+export const AuthContext = createContext<IAuthContext>({jwt:"", updateJwt: ()=>{}});
 
 export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
+  const [jwt, setJwt] = useState("")
+  const updateJwt = (newJwt: string) => {
+    console.log('updated global jwt' + newJwt)
+    setJwt(newJwt)
+  }
 
-  const [state, dispatch] = React.useReducer(reducer, initialState)
-  
   return (
-    <AuthContext.Provider value={{state, dispatch: () => null }} {...props}/>
+    <AuthContext.Provider value={{jwt, updateJwt }}>
+      {props.children}
+    </AuthContext.Provider>
   )
 }

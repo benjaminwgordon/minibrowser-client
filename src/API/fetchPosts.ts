@@ -1,13 +1,15 @@
 import constants from "./constants";
+import IPost from "./types/IPost";
 
 export default async function fetchPosts(
-  options?: any
-): Promise<any | undefined> {
-  try {
-    let posts = await fetch(constants.baseURL + "/post");
-    posts = await posts.json();
-    return posts;
-  } catch (error) {
-    console.log(error);
-  }
+  jwt: string
+): Promise<IPost[] | undefined> {
+  return fetch(constants.baseURL + "/post", {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + jwt,
+    },
+  }).then((response) => response.json());
 }
