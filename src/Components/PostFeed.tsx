@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-import fetchPosts from "../API/fetchPosts";
 import { useContext } from "react";
 import { AuthContext } from "../Contexts/Auth";
 import IPost from "../API/types/IPost";
 import { Link, useNavigate } from "react-router-dom";
+import get from "../API/Get";
 
 const PostFeed = () => {
   const [posts, setPosts] = useState<IPost[] | null>([]);
@@ -14,14 +14,11 @@ const PostFeed = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      console.log("fetching feed posts with auth token: " + jwt);
-      const postList = await fetchPosts(jwt);
+      const postList: IPost[] | null = await get<IPost[]>(jwt, "/post");
       if (postList === undefined) {
         //TODO: add error handling
         setPosts(null);
-        console.log("empty posts return value");
       } else {
-        console.log(postList);
         setPosts(postList);
       }
     };

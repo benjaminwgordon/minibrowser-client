@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 
 const Posts = () => {
   const navigate = useNavigate();
@@ -7,11 +7,10 @@ const Posts = () => {
   return (
     <div>
       <h1>Posts</h1>
-      <input
-        type="button"
-        value="New Post"
-        onClick={() => navigate("/post/new")}
-      />
+      <nav>
+        <Link to="feed">Feed</Link>
+        <Link to="new">New Post</Link>
+      </nav>
       <Outlet />
     </div>
   );
