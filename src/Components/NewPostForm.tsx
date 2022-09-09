@@ -35,33 +35,62 @@ const NewPostForm = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "40%" }}>
       <form style={{ display: "flex", flexDirection: "column" }}>
-        <label htmlFor="titleInput">Title</label>
-        <input
-          type="text"
-          name="titleInput"
-          id="titleInput"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label htmlFor="contentInput">Content</label>
-        <input
-          type="text"
-          name="contentInput"
-          id="contentInput"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <label htmlFor="descriptionInput">Description</label>
-        <input
-          type="text"
-          name="descriptionInput"
-          id="descriptionInput"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input type="button" value="Submit" onClick={() => handleSubmit()} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0.5rem",
+          }}
+        >
+          <label htmlFor="titleInput">Title</label>
+          <input
+            type="text"
+            name="titleInput"
+            id="titleInput"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            style={{ flexGrow: 1, marginLeft: "1rem" }}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0.5rem",
+          }}
+        >
+          <label htmlFor="contentInput">Content</label>
+          <input
+            type="text"
+            name="contentInput"
+            id="contentInput"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            style={{ flexGrow: 1, marginLeft: "1rem" }}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0.5rem",
+          }}
+        >
+          <label htmlFor="descriptionInput">Description</label>
+          <input
+            type="text"
+            name="descriptionInput"
+            id="descriptionInput"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={{ flexGrow: 1, marginLeft: "1rem" }}
+          />
+        </div>
+        <div>
+          <input type="button" value="Submit" onClick={() => handleSubmit()} />
+        </div>
       </form>
       {errors ? (
         <ul>

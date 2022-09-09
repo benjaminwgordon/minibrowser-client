@@ -31,7 +31,7 @@ const PostFeed = () => {
         {posts !== null ? (
           posts.map((post) => {
             return (
-              <li>
+              <li key={post.id}>
                 <Post
                   id={post.id}
                   title={post.title}
@@ -39,7 +39,6 @@ const PostFeed = () => {
                   authorId={post.authorId}
                   author={post.author}
                   description={post.description}
-                  key={post.id}
                 />
               </li>
             );
