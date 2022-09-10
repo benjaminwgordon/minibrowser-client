@@ -19,6 +19,9 @@ import Posts from "./Components/Posts";
 import AuthFlow from "./Components/AuthFlow";
 import SignupForm from "./Components/SignupForm";
 import PrivateOutlet from "./Components/PrivateOutlet";
+import User from "./Components/User";
+import UserProfile from "./Components/UserProfile";
+import AuthedUserProfile from "./Components/AuthedUserProfile";
 
 function App() {
   return (
@@ -27,10 +30,13 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <Routes>
+            {/* The auth path is visible to all users regardless of auth status */}
             <Route path="/auth" element={<AuthFlow />}>
               <Route index element={<LoginForm />} />
               <Route path="signup" element={<SignupForm />} />
             </Route>
+
+            {/* All routes in this block are accessible only to authed users */}
             <Route path="/" element={<PrivateOutlet />}>
               <Route path="post" element={<Posts />}>
                 <Route index element={<Navigate to="feed" replace />} />
@@ -38,7 +44,13 @@ function App() {
                 <Route path="new" element={<NewPostForm />} />
                 <Route path="*" element={<NoRoute />} />
               </Route>
+              <Route path="user" element={<User />}>
+                <Route path=":id" element={<UserProfile />} />
+                <Route path="me" element={<AuthedUserProfile />} />
+              </Route>
             </Route>
+
+            {/* Invalid route catch block */}
             <Route
               path="/*"
               element={

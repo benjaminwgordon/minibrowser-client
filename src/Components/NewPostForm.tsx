@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import newPost from "../API/newPost";
 import INewPost from "../API/types/INewPost";
 import { AuthContext } from "../Contexts/Auth";
 import { useContext } from "react";
