@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import login from "../API/login";
 import post from "../API/Post";
 import { AuthContext } from "../Contexts/Auth";
 

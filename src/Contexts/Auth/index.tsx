@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 interface IAuthContext {
   jwt: string;
@@ -25,7 +25,19 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState(-1);
 
+  //catches unset jwts and attempts to reset them from session storage
+  useEffect(() => {
+    if (jwt === "") {
+      const storedToken = sessionStorage.getItem("jwt");
+      console.log(storedToken);
+      if (storedToken) {
+        updateJwt(storedToken);
+      }
+    }
+  }, []);
+
   const updateJwt = (newJwt: string) => {
+    sessionStorage.setItem("jwt", newJwt);
     setJwt(newJwt);
   };
 

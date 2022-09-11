@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import login from "../API/login";
+import { useNavigate } from "react-router-dom";
 import post, { RequestError } from "../API/Post";
-import IRequestError from "../API/types/IRequestError";
 import { AuthContext } from "../Contexts/Auth";
 
 const LoginForm = () => {
