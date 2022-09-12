@@ -5,8 +5,8 @@ import constants from "./constants";
 export default async function get<ReturnType>(
   jwt: string,
   target: string
-): Promise<ReturnType | null> {
-  const result: ReturnType | null = await fetch(constants.baseURL + target, {
+): Promise<ReturnType> {
+  const result: ReturnType = await fetch(constants.baseURL + target, {
     method: "GET",
     mode: "cors",
     headers: {

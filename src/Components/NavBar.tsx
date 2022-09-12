@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const NavBar = () => {
   return (
@@ -11,6 +12,7 @@ const NavBar = () => {
       }}
     >
       <div>MiniBrowser</div>
+      <SearchBar />
       <nav>
         <Link to={"/post"}>Feed</Link>
         <Link to={"/user/me"}>Profile</Link>
