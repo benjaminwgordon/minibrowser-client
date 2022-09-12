@@ -21,7 +21,6 @@ import SignupForm from "./Components/SignupForm";
 import PrivateOutlet from "./Components/PrivateOutlet";
 import User from "./Components/User";
 import UserProfile from "./Components/UserProfile";
-import AuthedUserProfile from "./Components/AuthedUserProfile";
 
 function App() {
   return (
@@ -46,7 +45,7 @@ function App() {
               </Route>
               <Route path="user" element={<User />}>
                 <Route path=":id" element={<UserProfile />} />
-                <Route path="me" element={<AuthedUserProfile />} />
+                <Route path="me" element={<UserProfile />} />
               </Route>
             </Route>
 

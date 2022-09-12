@@ -28,7 +28,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   //catches unset jwts and attempts to reset them from session storage
   useEffect(() => {
     if (jwt === "") {
-      const storedToken = sessionStorage.getItem("jwt");
+      const storedToken = localStorage.getItem("jwt");
       console.log(storedToken);
       if (storedToken) {
         updateJwt(storedToken);
@@ -37,7 +37,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   }, []);
 
   const updateJwt = (newJwt: string) => {
-    sessionStorage.setItem("jwt", newJwt);
+    localStorage.setItem("jwt", newJwt);
     setJwt(newJwt);
   };
 

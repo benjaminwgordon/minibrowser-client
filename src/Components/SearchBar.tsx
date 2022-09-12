@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import get from "../API/Get";
 import { AuthContext } from "../Contexts/Auth";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSubmit = () => {};
   const { jwt } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [searchResult, setSearchResult] = useState<
     { id: number; username: string }[]
   >([]);
@@ -39,7 +42,18 @@ const SearchBar = () => {
       />
       <ul>
         {searchResult.length > 0 ? (
-          searchResult.map((user) => <li key={user.id}>{user.username}</li>)
+          searchResult.map((user) => (
+            <li
+              key={user.id}
+              onClick={() => {
+                setSearchTerm("");
+                setSearchResult([]);
+                navigate(`/user/${user.username}`);
+              }}
+            >
+              {user.username}
+            </li>
+          ))
         ) : (
           <></>
         )}
