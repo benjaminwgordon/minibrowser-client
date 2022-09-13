@@ -6,6 +6,7 @@ import IPost from "../API/types/IPost";
 import post, { RequestError } from "../API/Post";
 import { useNavigate } from "react-router-dom";
 import IRequestError from "../API/types/IRequestError";
+import ImageUpload from "./ImageUpload";
 
 const NewPostForm = () => {
   const [title, setTitle] = useState("");
@@ -87,6 +88,7 @@ const NewPostForm = () => {
             style={{ flexGrow: 1, marginLeft: "1rem" }}
           />
         </div>
+        <ImageUpload />
         <div>
           <input type="button" value="Submit" onClick={() => handleSubmit()} />
         </div>
