@@ -7,20 +7,25 @@ import { Link, useNavigate } from "react-router-dom";
 import get from "../API/Get";
 
 const PostFeed = () => {
-  const [posts, setPosts] = useState<IPost[] | null>([]);
+  const [posts, setPosts] = useState<
+    (IPost & { author: { username: string; id: number } })[]
+  >([]);
   const { jwt } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
-      const postList: IPost[] | null = await get<IPost[]>(jwt, "/post");
-      if (postList === undefined) {
-        //TODO: add error handling
-        setPosts(null);
-      } else {
-        setPosts(postList);
-      }
+      get<(IPost & { author: { username: string; id: number } })[]>(
+        jwt,
+        "/post"
+      )
+        .then((res) => {
+          setPosts(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
     fetch();
   }, [jwt]);
@@ -36,8 +41,8 @@ const PostFeed = () => {
                   id={post.id}
                   title={post.title}
                   content={post.content}
-                  authorId={post.authorId}
-                  author={post.author}
+                  authorId={post.author.id}
+                  author={post.author.username}
                   description={post.description}
                 />
               </li>

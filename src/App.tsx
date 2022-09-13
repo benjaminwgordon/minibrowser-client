@@ -44,8 +44,8 @@ function App() {
                 <Route path="*" element={<NoRoute />} />
               </Route>
               <Route path="user" element={<User />}>
-                <Route path=":id" element={<UserProfile />} />
                 <Route path="me" element={<UserProfile />} />
+                <Route path=":username" element={<UserProfile />} />
               </Route>
             </Route>
 

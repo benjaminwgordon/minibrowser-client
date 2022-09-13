@@ -12,9 +12,10 @@ interface IPostProps {
 const Post = (props: IPostProps) => {
   return (
     <div style={{ border: "1px solid black", padding: "1rem" }}>
-      <p>{props.title}</p>
+      <h3>{props.title}</h3>
       <p>{props.content}</p>
       <p>{props.description}</p>
+      <p>Author: {props.author}</p>
     </div>
   );
 };
