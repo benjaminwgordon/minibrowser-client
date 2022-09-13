@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 const ImageUpload = () => {
@@ -13,6 +13,13 @@ const ImageUpload = () => {
   return image ? (
     <div>
       <img src={URL.createObjectURL(image)} alt="user uploaded image" />
+      <input
+        type="button"
+        value="Change Image"
+        onClick={() => {
+          setImage(undefined);
+        }}
+      />
     </div>
   ) : (
     <input
