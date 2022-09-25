@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useState } from "react";
 
-const ImageUpload = () => {
-  const [image, setImage] = useState<File>();
+interface IImageUploadProps {
+  image: any;
+  setImage: Dispatch<SetStateAction<any>>;
+}
 
+const ImageUpload = (props: IImageUploadProps) => {
   const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target && event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
+      props.setImage(event.target.files[0]);
     }
   };
 
-  return image ? (
+  const handleDeleteUploadedImage = () => {
+    props.setImage(undefined);
+  };
+
+  return props.image ? (
     <div>
-      <img src={URL.createObjectURL(image)} alt="user uploaded image" />
+      <img src={URL.createObjectURL(props.image)} alt="user uploaded image" />
       <input
         type="button"
         value="Change Image"
-        onClick={() => {
-          setImage(undefined);
-        }}
+        onClick={() => handleDeleteUploadedImage()}
       />
     </div>
   ) : (

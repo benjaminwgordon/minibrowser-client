@@ -14,7 +14,7 @@ const Post = (props: IPostProps) => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ border: "1px solid black", padding: "1rem" }}>
+    <div className="rounded">
       <h3>{props.title}</h3>
       <p>{props.content}</p>
       <p>{props.description}</p>
