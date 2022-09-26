@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 const User = () => {
   return (
     <div>
-      <p>Users</p>
+      <NavBar />
       <Outlet />
     </div>
   );

@@ -4,13 +4,7 @@ import SearchBar from "./SearchBar";
 
 const NavBar = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-      }}
-    >
+    <div className="flex items-center justify-between h-16">
       <div>MiniBrowser</div>
       <SearchBar />
       <nav>

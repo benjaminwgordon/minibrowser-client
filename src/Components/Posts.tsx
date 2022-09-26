@@ -1,15 +1,23 @@
 import React from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
+import Button from "./Button";
+import NavBar from "./NavBar";
 
 const Posts = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      <h1>Posts</h1>
       <nav>
         <Link to="feed">Feed</Link>
-        <Link to="new">New Post</Link>
+        <NavBar />
+        <Button
+          additionalStyles="bg-red-500"
+          onClick={() => {
+            navigate("new");
+          }}
+          value="New Post"
+        />
       </nav>
       <Outlet />
     </div>
