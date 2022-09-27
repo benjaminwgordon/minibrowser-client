@@ -18,7 +18,7 @@ const ImageUpload = (props: IImageUploadProps) => {
   };
 
   return props.image ? (
-    <div>
+    <div className="flex items-center justify-center">
       <img src={URL.createObjectURL(props.image)} alt="user uploaded image" />
       <input
         type="button"
