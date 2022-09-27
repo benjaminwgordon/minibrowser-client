@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import get from "../API/Get";
 import { AuthContext } from "../Contexts/Auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { request } from "http";
 
 const SearchBar = () => {
@@ -10,6 +10,7 @@ const SearchBar = () => {
 
   const { jwt } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [searchResult, setSearchResult] = useState<
     { id: number; username: string }[]
@@ -33,23 +34,24 @@ const SearchBar = () => {
     }
   }, [searchTerm, jwt]);
 
+  // reset the state of the search bar if the user navigates away from current page view
+  useEffect(() => {
+    setSearchTerm("");
+    setIsSearchFocused(false);
+  }, [location]);
+
   return (
     <div
       className="relative"
       onFocus={() => {
         setIsSearchFocused(true);
       }}
-      onBlur={(e) => {
-        console.log({ e });
-        if (!e.currentTarget.contains(document.activeElement)) {
-          setIsSearchFocused(false);
-        }
-      }}
     >
       <input
         type="text"
         name="searchBarInput"
         id="searchBarInput"
+        value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="h-10 w-80 border border-gray-200 bg-gray-100 rounded-md pl-5 outline-none"
         placeholder="Search"
@@ -62,9 +64,10 @@ const SearchBar = () => {
               <li
                 key={user.id}
                 onClick={() => {
+                  navigate(`/user/${user.username}`);
                   setSearchTerm("");
                   setSearchResult([]);
-                  navigate(`/user/${user.username}`);
+                  setIsSearchFocused(false);
                 }}
                 className="flex w-full h-8 pl-5 items-center text-black hover:bg-gray-100"
               >
