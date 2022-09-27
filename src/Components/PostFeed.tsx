@@ -31,12 +31,12 @@ const PostFeed = () => {
   }, [jwt]);
 
   return (
-    <div>
+    <div className="flex flex-column justify-center">
       <ul>
         {posts !== null ? (
           posts.map((post) => {
             return (
-              <li key={post.id}>
+              <li key={post.id} className="mb-8">
                 <Post
                   id={post.id}
                   title={post.title}

@@ -35,23 +35,27 @@ const UserProfile = () => {
   }, [username]);
 
   return user ? (
-    <div>
-      <p>UserProfile</p>
-      <p>{user.username}</p>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Post
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              authorId={user.id}
-              author={user.username}
-              description={post.description}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className="">
+      <div>
+        <ul className="">
+          {posts.map((post) => (
+            <li key={post.id}>
+              <Post
+                id={post.id}
+                title={post.title}
+                content={post.content}
+                authorId={user.id}
+                author={user.username}
+                description={post.description}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p>UserProfile</p>
+        <p>{user.username}</p>
+      </div>
     </div>
   ) : (
     <p>No user found</p>
