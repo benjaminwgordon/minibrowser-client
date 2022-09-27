@@ -5,3 +5,11 @@
 .html {
     background-color: rgb(229 231 235);
 }
+
+#root {
+    height:100%;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}

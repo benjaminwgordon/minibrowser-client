@@ -9,7 +9,7 @@ import {
 
 const NavBar = () => {
   return (
-    <div className="float-left bg-white flex w-full items-center justify-between h-16 px-5 border border-gray-200 mb-5">
+    <div className="float-left sticky top-0 bg-white flex w-full items-center justify-between h-16 px-5 border border-gray-200 mb-5">
       <Link
         to={"/post"}
         className="text-black text-lg hover:text-gray-600 select-none"

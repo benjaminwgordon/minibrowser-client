@@ -6,7 +6,7 @@ const NewPostForm = () => {
   const [image, setImage] = useState(undefined);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center">
       {!image ? (
         <ImageUpload image={image} setImage={setImage} />
       ) : (

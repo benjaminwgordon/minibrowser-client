@@ -5,8 +5,6 @@ import { useContext } from "react";
 import IPost from "../API/types/IPost";
 import post, { RequestError } from "../API/Post";
 import { useNavigate } from "react-router-dom";
-import IRequestError from "../API/types/IRequestError";
-import ImageUpload from "./ImageUpload";
 
 interface INewPostFormMetadataProps {
   image: any;

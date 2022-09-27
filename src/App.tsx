@@ -1,6 +1,4 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./App.css";
 import PostFeed from "./Components/PostFeed";
 import LoginForm from "./Components/LoginForm";
 import { AuthProvider } from "./Contexts/Auth/index";
@@ -13,6 +11,7 @@ import PrivateOutlet from "./Components/PrivateOutlet";
 import User from "./Components/User";
 import UserProfile from "./Components/UserProfile";
 import { useEffect } from "react";
+import "./App.css";
 
 function App() {
   useEffect(() => {

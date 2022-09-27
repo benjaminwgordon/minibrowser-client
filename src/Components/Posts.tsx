@@ -1,14 +1,12 @@
-import React from "react";
-import { Outlet, useNavigate, Link } from "react-router-dom";
-import Button from "./Button";
+import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 
 const Posts = () => {
   return (
-    <div>
+    <>
       <NavBar />
       <Outlet />
-    </div>
+    </>
   );
 };
 

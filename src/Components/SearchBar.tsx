@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import get from "../API/Get";
 import { AuthContext } from "../Contexts/Auth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { request } from "http";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");

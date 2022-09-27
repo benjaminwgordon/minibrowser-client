@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
-import { useState } from "react";
+import { PhotoIcon } from "@heroicons/react/24/outline";
+import React, { Dispatch, SetStateAction } from "react";
 
 interface IImageUploadProps {
   image: any;
@@ -19,7 +19,7 @@ const ImageUpload = (props: IImageUploadProps) => {
 
   return props.image ? (
     <div className="flex items-center justify-center">
-      <img src={URL.createObjectURL(props.image)} alt="user uploaded image" />
+      <img src={URL.createObjectURL(props.image)} alt="user upload" />
       <input
         type="button"
         value="Change Image"
@@ -27,12 +27,26 @@ const ImageUpload = (props: IImageUploadProps) => {
       />
     </div>
   ) : (
-    <input
-      type="file"
-      name="imageUpload"
-      id="imageUpload"
-      onChange={(e) => handleUploadImage(e)}
-    />
+    <div>
+      <label
+        htmlFor="imageUpload"
+        className="flex flex-col items-center justify-center"
+      >
+        <PhotoIcon className="h-24 w-24 text-gray-600 hover:text-gray-700 select-none" />
+        <p className="text-lg">Drag an image to upload</p>
+        <p className="mt-6 bg-blue-500 text-white rounded-md px-2 py-1 hover:bg-blue-600">
+          Select from computer
+        </p>
+      </label>
+      <input
+        type="file"
+        name="imageUpload"
+        id="imageUpload"
+        onChange={(e) => handleUploadImage(e)}
+        className="hidden"
+        accept="image/*"
+      />
+    </div>
   );
 };
 
