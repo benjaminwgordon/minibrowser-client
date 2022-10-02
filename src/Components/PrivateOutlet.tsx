@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthContext } from "../Contexts/Auth";
 import { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 // Forces a redirect back to the login page anytime a user attempts to navigate to a page before logging in
 
 const PrivateOutlet = (props: React.PropsWithChildren) => {
-  const { jwt } = useContext(AuthContext);
+  const { jwt, updatePreviousLocation } = useContext(AuthContext);
+  const location = useLocation();
+
+  useEffect(() => {
+    updatePreviousLocation(location);
+    console.log("updating redirect location: ", { location });
+  }, [jwt, location]);
+
   return jwt === "" ? <Navigate to="/auth" /> : <Outlet />;
 };
 

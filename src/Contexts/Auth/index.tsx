@@ -1,4 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
+import { Location } from "react-router-dom";
+import decodeJWT from "../../utils/decodeJwt";
 
 interface IAuthContext {
   jwt: string;
@@ -9,6 +11,9 @@ interface IAuthContext {
 
   userId: number;
   updateUserId: (newUserId: number) => void;
+
+  previousLocation: Location | undefined;
+  updatePreviousLocation: (newPreviousLocation: Location | undefined) => void;
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -18,20 +23,31 @@ export const AuthContext = createContext<IAuthContext>({
   updateUsername: () => {},
   userId: -1,
   updateUserId: () => {},
+  previousLocation: undefined,
+  updatePreviousLocation: () => {},
 });
 
 export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
-  const [jwt, setJwt] = useState("");
-  const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState(-1);
+  const [jwt, setJwt] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [userId, setUserId] = useState<number>(-1);
+  const [previousLocation, setPreviousLocation] = useState<Location>();
 
   //catches unset jwts and attempts to reset them from session storage
   useEffect(() => {
     if (jwt === "") {
       const storedToken = localStorage.getItem("jwt");
-      console.log(storedToken);
       if (storedToken) {
-        updateJwt(storedToken);
+        const decodedToken = decodeJWT(storedToken);
+        const date = new Date();
+        const currentTime = Math.floor(date.getTime() / 1000);
+        if (currentTime > decodedToken.exp) {
+          // invalidate stored token
+          localStorage.removeItem("jwt");
+          updateJwt("");
+        } else {
+          updateJwt(storedToken);
+        }
       }
     }
   }, []);
@@ -49,9 +65,24 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     setUserId(newUserId);
   };
 
+  const updatePreviousLocation = (
+    newPreviousLocation: Location | undefined
+  ) => {
+    setPreviousLocation(newPreviousLocation);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ jwt, updateJwt, username, updateUsername, userId, updateUserId }}
+      value={{
+        jwt,
+        updateJwt,
+        username,
+        updateUsername,
+        userId,
+        updateUserId,
+        previousLocation,
+        updatePreviousLocation,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

@@ -1,15 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import post, { RequestError } from "../API/Post";
 import { AuthContext } from "../Contexts/Auth";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import decodeJWT from "../utils/decodeJwt";
+import { time } from "console";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
 
-  const { jwt, updateJwt } = useContext(AuthContext);
+  const { jwt, updateJwt, previousLocation, updatePreviousLocation } =
+    useContext(AuthContext);
 
   let navigate = useNavigate();
 
@@ -21,6 +24,20 @@ const LoginForm = () => {
   interface IAuthToken {
     access_token: string;
   }
+
+  useEffect(() => {
+    // if there is an existing jwt stored, skip login and attempt to nav to prior destination
+    if (jwt) {
+      if (previousLocation !== undefined) {
+        const loc = previousLocation;
+        updatePreviousLocation(undefined);
+        console.log("navigating to prior location: " + loc.pathname);
+        navigate(loc.pathname);
+      } else {
+        navigate("/post");
+      }
+    }
+  }, [jwt]);
 
   const handleSubmit = async () => {
     setErrors([]);

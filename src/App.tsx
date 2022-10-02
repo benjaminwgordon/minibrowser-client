@@ -45,14 +45,10 @@ function App() {
           </Route>
 
           {/* Invalid route catch block */}
-          <Route
-            path="/*"
-            element={
-              <PrivateOutlet>
-                <NoRoute />
-              </PrivateOutlet>
-            }
-          />
+          <Route path="/*" element={<PrivateOutlet />}>
+            <Route index element={<Navigate to="noRoute" replace />} />
+            <Route path="noRoute" element={<NoRoute />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

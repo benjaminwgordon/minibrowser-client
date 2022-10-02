@@ -41,7 +41,7 @@ const SearchBar = () => {
 
   return (
     <div
-      className="relative"
+      className="relative p-2"
       onFocus={() => {
         setIsSearchFocused(true);
       }}

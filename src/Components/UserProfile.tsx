@@ -35,26 +35,18 @@ const UserProfile = () => {
   }, [username]);
 
   return user ? (
-    <div className="">
+    <div className="w-screen flex flex-col justify-evenly ">
+      <div className="flex flex-row p-4  justify-center border-b rounded-md">
+        <h1 className="text-xl font-bold">{user.username}</h1>
+      </div>
       <div>
-        <ul className="">
+        <ul className="flex flex-row justify-evenly">
           {posts.map((post) => (
-            <li key={post.id}>
-              <Post
-                id={post.id}
-                title={post.title}
-                content={post.content}
-                authorId={user.id}
-                author={user.username}
-                description={post.description}
-              />
+            <li key={post.id} className="m-4">
+              <img src={post.content} className="w-64 h-64 object-cover" />
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <p>UserProfile</p>
-        <p>{user.username}</p>
       </div>
     </div>
   ) : (
