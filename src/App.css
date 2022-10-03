@@ -14,3 +14,7 @@
     width: 100%;
     flex-direction: column;
 }
+
+input{
+    outline-style: none;
+}

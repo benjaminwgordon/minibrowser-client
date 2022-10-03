@@ -31,7 +31,7 @@ const PostFeed = () => {
   }, [jwt]);
 
   return (
-    <div className="flex flex-column justify-center">
+    <div className="flex flex-column justify-center mt-8">
       <ul>
         {posts !== null ? (
           posts.map((post) => {

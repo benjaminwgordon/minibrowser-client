@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/Auth";
-import Post from "./Post";
 
 interface IUser {
   username: string;
@@ -43,7 +42,11 @@ const UserProfile = () => {
         <ul className="flex flex-row justify-evenly">
           {posts.map((post) => (
             <li key={post.id} className="m-4">
-              <img src={post.content} className="w-64 h-64 object-cover" />
+              <img
+                src={post.content}
+                alt={post.title}
+                className="w-64 h-64 object-cover"
+              />
             </li>
           ))}
         </ul>

@@ -5,6 +5,7 @@ import { useContext } from "react";
 import IPost from "../API/types/IPost";
 import post, { RequestError } from "../API/Post";
 import { useNavigate } from "react-router-dom";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 interface INewPostFormMetadataProps {
   image: any;
@@ -15,7 +16,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
 
-  const { jwt } = useContext(AuthContext);
+  const { jwt, username } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -35,8 +36,8 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
   };
 
   return (
-    <div style={{ width: "40%" }}>
-      <form style={{ display: "flex", flexDirection: "column" }}>
+    <div className="w-1/2 h-1/2 bg-white rounded-lg">
+      <form className="flex flex-col justify-center">
         <div
           style={{
             display: "flex",
@@ -44,15 +45,22 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
             padding: "0.5rem",
           }}
         >
-          <label htmlFor="titleInput">Title</label>
+          <label htmlFor="titleInput" className="sr-only">
+            Title
+          </label>
           <input
             type="text"
             name="titleInput"
             id="titleInput"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            style={{ flexGrow: 1, marginLeft: "1rem" }}
+            className="pl-2 w-full"
+            placeholder="Title"
           />
+          <div>
+            <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
+            <p className="pl-1 hover:cursor-pointer">{username}</p>
+          </div>
         </div>
         <img src={URL.createObjectURL(props.image)} alt="user uploaded image" />
         <div
@@ -72,7 +80,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
             style={{ flexGrow: 1, marginLeft: "1rem" }}
           />
         </div>
-        <div>
+        <div className="bg-blue-300 flex justify-center items-center">
           <input type="button" value="Submit" onClick={() => handleSubmit()} />
         </div>
       </form>

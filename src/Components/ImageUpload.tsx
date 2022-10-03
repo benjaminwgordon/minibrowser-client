@@ -27,7 +27,7 @@ const ImageUpload = (props: IImageUploadProps) => {
       />
     </div>
   ) : (
-    <div>
+    <div className="w-96 h-96 flex justify-center items-center bg-white rounded-lg">
       <label
         htmlFor="imageUpload"
         className="flex flex-col items-center justify-center"
