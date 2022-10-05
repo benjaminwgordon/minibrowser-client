@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import post, { RequestError } from "../API/Post";
 import { AuthContext } from "../Contexts/Auth";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import decodeJWT from "../utils/decodeJwt";
-import { time } from "console";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +14,17 @@ const LoginForm = () => {
 
   let navigate = useNavigate();
 
+  // if there is already a stored in-memory jwt, skip login page and nav directly to the pre-redirect target location
+  useEffect(() => {
+    if (jwt !== "") {
+      if (previousLocation) {
+        navigate(previousLocation);
+      } else {
+        navigate("/post");
+      }
+    }
+  }, []);
+
   interface ILogin {
     email: string;
     password: string;
@@ -24,20 +33,6 @@ const LoginForm = () => {
   interface IAuthToken {
     access_token: string;
   }
-
-  useEffect(() => {
-    // if there is an existing jwt stored, skip login and attempt to nav to prior destination
-    if (jwt) {
-      if (previousLocation !== undefined) {
-        const loc = previousLocation;
-        updatePreviousLocation(undefined);
-        console.log("navigating to prior location: " + loc.pathname);
-        navigate(loc.pathname);
-      } else {
-        navigate("/post");
-      }
-    }
-  }, [jwt]);
 
   const handleSubmit = async () => {
     setErrors([]);

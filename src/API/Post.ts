@@ -1,7 +1,6 @@
 // generic fetch GET functionality.  Provide expected return type as ReturnType
 
 import constants from "./constants";
-import IRequestError from "./types/IRequestError";
 
 export class RequestError {
   statusCode: number;
@@ -30,9 +29,11 @@ export default async function post<BodyType, ReturnType>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": constants.baseURL,
         Authorization: "Bearer " + jwt,
       },
       body: JSON.stringify(body),
+      credentials: "include",
     }
   ).then((response) => response.json());
 
