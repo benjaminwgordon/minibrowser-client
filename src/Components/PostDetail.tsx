@@ -35,7 +35,7 @@ const PostDetail = (props: IPostProps) => {
               src={content}
               alt="user uploaded content"
               loading="lazy"
-              className="h-0 min-h-full"
+              className="h-0 min-h-full object-contain"
             />
           </div>
           <div className="flex flex-col justify-between items-left w-1/3 p-2">
