@@ -17,7 +17,7 @@ export class RequestError {
   }
 }
 
-export default async function post<BodyType, ReturnType>(
+export default async function post<BodyType, ReturnType extends {}>(
   jwt: string,
   target: string,
   body: BodyType

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { AuthContext } from "../Contexts/Auth";
 
 interface INewPostFormMetadataProps {
   image: any;
@@ -15,7 +16,7 @@ interface INewPostFormMetadataProps {
 const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
   const { image, description, setDescription, title, setTitle, launchSubmit } =
     props;
-
+  const { username } = useContext(AuthContext);
   return (
     <div className="w-full h-full flex flex-col items-center bg-gray-100">
       <div className="w-full flex flex-row justify-between items-center h-12 px-4 border-b bg-white">
@@ -52,7 +53,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
             />
             <div className="flex flex-row">
               <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
-              <p className="pl-1">{"Username"}</p>
+              <p className="pl-1">{username}</p>
             </div>
           </div>
           <div className="w-full bg-black">

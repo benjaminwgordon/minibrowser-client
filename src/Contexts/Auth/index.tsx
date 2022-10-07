@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Location } from "react-router-dom";
+import get from "../../API/Get";
+import IUser from "../../API/types/IUser";
 import decodeJWT from "../../utils/decodeJwt";
 
 interface IAuthContext {
@@ -46,11 +48,25 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
           localStorage.removeItem("jwt");
           updateJwt("");
         } else {
+          // use existing token
           updateJwt(storedToken);
         }
       }
     }
   }, []);
+
+  useEffect(() => {
+    async function fetchUserData(jwt: string) {
+      const userData = await get<IUser>(jwt, "/user/me");
+      if (userData !== undefined) {
+        setUserId(userData.id);
+        setUsername(userData.username);
+      } else {
+        throw new Error("failed to update user data");
+      }
+    }
+    const userData = fetchUserData(jwt).catch((err) => console.log(err));
+  }, [jwt]);
 
   const updateJwt = (newJwt: string) => {
     localStorage.setItem("jwt", newJwt);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import {
@@ -8,10 +8,12 @@ import {
 } from "@heroicons/react/20/solid";
 import NewPostForm from "./NewPostForm";
 import Modal from "./Modal";
+import { AuthContext } from "../Contexts/Auth";
 
 const NavBar = () => {
   // TODO: The NavBar currently controls the new post modal form, but this feels hard to track.  Condiser moving it in the future for clarity
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState<boolean>(false);
+  const { username } = useContext(AuthContext);
 
   return (
     <div className="float-left sticky z-50 top-0 bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
@@ -34,7 +36,7 @@ const NavBar = () => {
             <PlusCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
           </button>
           <Link
-            to={"/user/me"}
+            to={`/user/${username}`}
             className="text-black hover:text-gray-600 select-none"
           >
             <UserCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />

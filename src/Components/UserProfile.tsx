@@ -39,7 +39,7 @@ const UserProfile = () => {
         <h1 className="text-xl font-bold">{user.username}</h1>
       </div>
       <div>
-        <ul className="flex flex-row justify-evenly">
+        <ul className="flex flex-row justify-evenly flex-wrap">
           {posts.map((post) => (
             <li key={post.id} className="m-4">
               <img

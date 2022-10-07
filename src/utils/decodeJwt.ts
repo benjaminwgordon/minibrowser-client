@@ -1,4 +1,9 @@
-export default function decodeJWT(jwt: string): { iat: number; exp: number } {
+export default function decodeJWT(jwt: string): {
+  email: string;
+  sub: number;
+  iat: number;
+  exp: number;
+} {
   const base64Url = jwt.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   const jsonPayload = decodeURIComponent(
