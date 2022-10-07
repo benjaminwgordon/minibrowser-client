@@ -31,7 +31,7 @@ const NewPostForm = (props: INewPostFormProps) => {
     postMultipart<INewPost, IPost>(jwt, "/post", body)
       .then((result) => {
         props.close();
-        navigate("/post/feed");
+        navigate(`/user/${username}`);
       })
       .catch((error) => {
         console.log({ error });

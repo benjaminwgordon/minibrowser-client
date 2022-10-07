@@ -1,6 +1,4 @@
-import { link } from "fs";
-import { stringify } from "querystring";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";

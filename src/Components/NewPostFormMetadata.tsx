@@ -63,7 +63,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
               className="max-w-full max-h-full h-full w-full object-contain"
             />
           </div>
-          <div className="w-full px-4 py-1">
+          <div className="w-full px-4 py-1 border-t">
             <label htmlFor="descriptionInput" className="sr-only">
               Description
             </label>
