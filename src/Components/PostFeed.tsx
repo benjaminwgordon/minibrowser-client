@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Contexts/Auth";
 import IPost from "../API/types/IPost";
 import get from "../API/Get";
+import { Outlet } from "react-router-dom";
 
 const PostFeed = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -51,6 +52,7 @@ const PostFeed = () => {
           )}
         </ul>
       </div>
+      <Outlet />
     </div>
   );
 };

@@ -11,6 +11,7 @@ import User from "./Components/User";
 import UserProfile from "./Components/UserProfile";
 import { useEffect } from "react";
 import "./App.css";
+import PostDetail from "./Components/PostDetail";
 
 function App() {
   useEffect(() => {
@@ -33,12 +34,16 @@ function App() {
           <Route path="/" element={<PrivateOutlet />}>
             <Route path="post" element={<Posts />}>
               <Route index element={<Navigate to="feed" replace />} />
-              <Route path="feed" element={<PostFeed />} />
+              <Route path="feed" element={<PostFeed />}>
+                <Route path="post/:postId" element={<PostDetail />} />
+              </Route>
               <Route path="*" element={<NoRoute />} />
             </Route>
             <Route path="user" element={<User />}>
               <Route path="me" element={<UserProfile />} />
-              <Route path=":username" element={<UserProfile />} />
+              <Route path=":username" element={<UserProfile />}>
+                <Route path="post/:postId" element={<PostDetail />} />
+              </Route>
             </Route>
           </Route>
 

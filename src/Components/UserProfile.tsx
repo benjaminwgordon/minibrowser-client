@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/Auth";
-import PostDetail from "./PostDetail";
 
 interface IUser {
   username: string;
@@ -13,14 +12,13 @@ interface IUser {
 const UserProfile = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [user, setUser] = useState<IUser>();
-  const [detailViewFocus, setDetailViewFocus] = useState<IPost | undefined>(
-    undefined
-  );
+  const navigate = useNavigate();
 
   let { username } = useParams();
   let { jwt } = useContext(AuthContext);
 
   useEffect(() => {
+    setPosts([]);
     get<IUser & { posts: IPost[] }>(jwt, `/user/${username}/posts`)
       .then((res) => {
         setUser({ username: res.username, id: res.id });
@@ -43,7 +41,7 @@ const UserProfile = () => {
               key={post.id}
               className="m-4"
               onClick={() => {
-                setDetailViewFocus(post);
+                navigate(`post/${post.id}`);
               }}
             >
               <img
@@ -55,16 +53,7 @@ const UserProfile = () => {
           ))}
         </ul>
       </div>
-      {detailViewFocus ? (
-        <PostDetail
-          post={detailViewFocus}
-          close={() => {
-            setDetailViewFocus(undefined);
-          }}
-        ></PostDetail>
-      ) : (
-        <></>
-      )}
+      <Outlet />
     </div>
   ) : (
     <p>No user found</p>
