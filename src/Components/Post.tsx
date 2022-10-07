@@ -8,7 +8,7 @@ interface IPostProps {
   title: string;
   content: string;
   authorId: number;
-  author: string;
+  author: { username: string; id: number };
   description: string;
 }
 
@@ -32,11 +32,11 @@ const Post = (props: IPostProps) => {
       <div className="flex flex-row justify-between items-center px-5">
         <h3 className="flex items-center text-lg h-10">{props.title}</h3>
         <a
-          onClick={() => navigate(`/user/${props.author}`)}
+          onClick={() => navigate(`/user/${props.author.username}`)}
           className="flex flex-row items-center"
         >
           <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
-          <p className="pl-1 hover:cursor-pointer">{props.author}</p>
+          <p className="pl-1 hover:cursor-pointer">{props.author.username}</p>
         </a>
       </div>
       <div

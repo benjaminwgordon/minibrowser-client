@@ -11,7 +11,6 @@ const PrivateOutlet = (props: React.PropsWithChildren) => {
 
   useEffect(() => {
     updatePreviousLocation(location);
-    console.log("updating redirect location: ", { location });
   }, [jwt, location]);
 
   return jwt === "" ? <Navigate to="/auth" /> : <Outlet />;

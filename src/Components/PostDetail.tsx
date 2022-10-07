@@ -1,5 +1,4 @@
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface IPostProps {
@@ -8,7 +7,7 @@ interface IPostProps {
     title: string;
     content: string;
     authorId: number;
-    author: string;
+    author: { username: string };
     description: string;
   };
   close: () => void;
@@ -16,6 +15,7 @@ interface IPostProps {
 
 const PostDetail = (props: IPostProps) => {
   const { id, title, content, authorId, author, description } = props.post;
+  console.log({ detailViewProps: props });
   const navigate = useNavigate();
   return (
     <div
@@ -40,11 +40,11 @@ const PostDetail = (props: IPostProps) => {
           </div>
           <div className="flex flex-col justify-between items-left w-1/3 p-2">
             <button
-              onClick={() => navigate(`/user/${author}`)}
+              onClick={() => navigate(`/user/${author.username}`)}
               className="flex flex-row items-center"
             >
               <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
-              <p className="pl-1 hover:cursor-pointer">{author}</p>
+              <p className="pl-1 hover:cursor-pointer">{author.username}</p>
             </button>
             <p className="mt-2 pl-2 text-sm">{description}</p>
             <div className="flex justify-self-end">

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/Auth";
+import PostDetail from "./PostDetail";
 
 interface IUser {
   username: string;
@@ -12,7 +13,9 @@ interface IUser {
 const UserProfile = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [user, setUser] = useState<IUser>();
-  const [errors, setErrors] = useState<string[]>([]);
+  const [detailViewFocus, setDetailViewFocus] = useState<IPost | undefined>(
+    undefined
+  );
 
   let { username } = useParams();
   let { jwt } = useContext(AuthContext);
@@ -20,14 +23,11 @@ const UserProfile = () => {
   useEffect(() => {
     get<IUser & { posts: IPost[] }>(jwt, `/user/${username}/posts`)
       .then((res) => {
-        console.log({ res });
-        setErrors([]);
         setUser({ username: res.username, id: res.id });
         setPosts(res.posts);
       })
       .catch((error) => {
         console.log(error);
-        setErrors(["error finding user"]);
       });
   }, [username]);
 
@@ -39,7 +39,13 @@ const UserProfile = () => {
       <div>
         <ul className="flex flex-row justify-evenly flex-wrap">
           {posts.map((post) => (
-            <li key={post.id} className="m-4">
+            <li
+              key={post.id}
+              className="m-4"
+              onClick={() => {
+                setDetailViewFocus(post);
+              }}
+            >
               <img
                 src={post.content}
                 alt={post.title}
@@ -49,6 +55,16 @@ const UserProfile = () => {
           ))}
         </ul>
       </div>
+      {detailViewFocus ? (
+        <PostDetail
+          post={detailViewFocus}
+          close={() => {
+            setDetailViewFocus(undefined);
+          }}
+        ></PostDetail>
+      ) : (
+        <></>
+      )}
     </div>
   ) : (
     <p>No user found</p>

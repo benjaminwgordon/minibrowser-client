@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Post from "./Post";
 import { useContext } from "react";
 import { AuthContext } from "../Contexts/Auth";
 import IPost from "../API/types/IPost";
-import { Link, useNavigate } from "react-router-dom";
 import get from "../API/Get";
-import PostDetail from "./PostDetail";
 
 const PostFeed = () => {
-  const [posts, setPosts] = useState<
-    (IPost & { author: { username: string; id: number } })[]
-  >([]);
-  const [detailViewPost, setDetailViewPost] = useState<
-    undefined | (IPost & { author: { username: string; id: number } })
-  >(undefined);
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [detailViewPost, setDetailViewPost] = useState<IPost | undefined>(
+    undefined
+  );
 
   const { jwt } = useContext(AuthContext);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetch = async () => {
-      get<(IPost & { author: { username: string; id: number } })[]>(
-        jwt,
-        "/post"
-      )
+      get<IPost[]>(jwt, "/post")
         .then((res) => {
           setPosts(res);
         })
@@ -49,7 +40,7 @@ const PostFeed = () => {
                     title={post.title}
                     content={post.content}
                     authorId={post.author.id}
-                    author={post.author.username}
+                    author={post.author}
                     description={post.description}
                   />
                 </li>
