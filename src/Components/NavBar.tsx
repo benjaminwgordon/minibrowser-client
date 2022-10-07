@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import {
@@ -6,8 +6,13 @@ import {
   HomeIcon,
   UserCircleIcon,
 } from "@heroicons/react/20/solid";
+import NewPostForm from "./NewPostForm";
+import Modal from "./Modal";
 
 const NavBar = () => {
+  // TODO: The NavBar currently controls the new post modal form, but this feels hard to track.  Condiser moving it in the future for clarity
+  const [isNewPostModalOpen, setIsNewPostModalOpen] = useState<boolean>(false);
+
   return (
     <div className="float-left sticky z-50 top-0 bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
       <div className="flex items-center justify-between max-w-4xl w-full">
@@ -22,12 +27,12 @@ const NavBar = () => {
           <Link to={"/post"}>
             <HomeIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
           </Link>
-          <Link
-            to={"/post/new"}
+          <button
+            onClick={() => setIsNewPostModalOpen(true)}
             className="text-black hover:text-gray-600 select-none"
           >
             <PlusCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
-          </Link>
+          </button>
           <Link
             to={"/user/me"}
             className="text-black hover:text-gray-600 select-none"
@@ -36,6 +41,14 @@ const NavBar = () => {
           </Link>
         </nav>
       </div>
+      {isNewPostModalOpen ? (
+        <Modal
+          close={() => setIsNewPostModalOpen(false)}
+          content={<NewPostForm close={() => setIsNewPostModalOpen(false)} />}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

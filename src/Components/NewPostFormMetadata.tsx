@@ -1,98 +1,84 @@
-import React, { useState } from "react";
-import INewPost from "../API/types/INewPost";
-import { AuthContext } from "../Contexts/Auth";
-import { useContext } from "react";
-import IPost from "../API/types/IPost";
-import post, { RequestError } from "../API/Post";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 
 interface INewPostFormMetadataProps {
   image: any;
+  description: string;
+  setDescription: (description: string) => void;
+  title: string;
+  setTitle: (title: string) => void;
+  launchSubmit: () => void;
 }
 
 const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState<string[]>([]);
-
-  const { jwt, username } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleSubmit = async () => {
-    setErrors([]);
-    const body: INewPost = {
-      title,
-      description,
-    };
-    // const res = await newPost(jwt, body);
-    post<INewPost, IPost>(jwt, "/post", body)
-      .then((result) => {
-        navigate("/post/feed");
-      })
-      .catch((error: RequestError) => {
-        setErrors(error.message);
-      });
-  };
+  const { image, description, setDescription, title, setTitle, launchSubmit } =
+    props;
 
   return (
-    <div className="w-1/2 h-1/2 bg-white rounded-lg">
-      <form className="flex flex-col justify-center">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "0.5rem",
-          }}
+    <div className="w-full h-full flex flex-col items-center bg-gray-100">
+      <div className="w-full flex flex-row justify-between items-center h-12 px-4 border-b bg-white">
+        <button
+          type="button"
+          onClick={() => {}}
+          // TODO: Make back function work
+          className="text-blue-400"
         >
-          <label htmlFor="titleInput" className="sr-only">
-            Title
-          </label>
-          <input
-            type="text"
-            name="titleInput"
-            id="titleInput"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="pl-2 w-full"
-            placeholder="Title"
-          />
-          <div>
-            <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
-            <p className="pl-1 hover:cursor-pointer">{username}</p>
+          <ArrowLeftIcon className="h-6 w-6" />
+        </button>
+        <h3>Add Description</h3>
+        <input
+          type="button"
+          value="next"
+          onClick={() => launchSubmit()}
+          className="text-blue-400 hover:cursor-pointer"
+        />
+      </div>
+      <div className="h-full py-4">
+        <form className="flex flex-col w-96 justify-start items-center bg-white rounded-lg border m-8">
+          <div className="w-full flex flex-row justify-between items-center border-b px-5 h-10">
+            <label htmlFor="titleInput" className="sr-only">
+              Title
+            </label>
+            <input
+              type="text"
+              name="titleInput"
+              id="titleInput"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full text-lg "
+              placeholder="Write a title..."
+            />
+            <div className="flex flex-row">
+              <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
+              <p className="pl-1">{"Username"}</p>
+            </div>
           </div>
-        </div>
-        <img src={URL.createObjectURL(props.image)} alt="user uploaded image" />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "0.5rem",
-          }}
-        >
-          <label htmlFor="descriptionInput">Description</label>
-          <input
-            type="text"
-            name="descriptionInput"
-            id="descriptionInput"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            style={{ flexGrow: 1, marginLeft: "1rem" }}
-          />
-        </div>
-        <div className="bg-blue-300 flex justify-center items-center">
-          <input type="button" value="Submit" onClick={() => handleSubmit()} />
-        </div>
-      </form>
-      {errors ? (
-        <ul>
-          {errors.map((error) => (
-            <li>{error}</li>
-          ))}
-        </ul>
-      ) : (
-        <></>
-      )}
+          <div className="w-full bg-black">
+            <img
+              src={URL.createObjectURL(image)}
+              alt="user upload"
+              className="max-w-full max-h-full h-full w-full object-contain"
+            />
+          </div>
+          <div className="w-full px-4 py-1">
+            <label htmlFor="descriptionInput" className="sr-only">
+              Description
+            </label>
+            <textarea
+              name="descriptionInput"
+              id="descriptionInput"
+              placeholder="Enter a caption..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full h-24"
+              maxLength={128}
+              wrap="hard"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

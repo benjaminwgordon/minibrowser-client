@@ -40,7 +40,7 @@ const Post = (props: IPostProps) => {
         </a>
       </div>
       <div
-        className="w-full bg-black items-center justify-center"
+        className="w-full bg-black flex items-center justify-center"
         onClick={() => setIsShowDetailView(true)}
       >
         <img src={props.content} alt="user uploaded content" loading="lazy" />

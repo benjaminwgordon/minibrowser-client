@@ -3,7 +3,6 @@ import PostFeed from "./Components/PostFeed";
 import LoginForm from "./Components/LoginForm";
 import { AuthProvider } from "./Contexts/Auth/index";
 import NoRoute from "./Components/NoRoute";
-import NewPostForm from "./Components/NewPostForm";
 import Posts from "./Components/Posts";
 import AuthFlow from "./Components/AuthFlow";
 import SignupForm from "./Components/SignupForm";
@@ -35,7 +34,6 @@ function App() {
             <Route path="post" element={<Posts />}>
               <Route index element={<Navigate to="feed" replace />} />
               <Route path="feed" element={<PostFeed />} />
-              <Route path="new" element={<NewPostForm />} />
               <Route path="*" element={<NoRoute />} />
             </Route>
             <Route path="user" element={<User />}>
