@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../../Contexts/Auth";
 
 interface INewPostFormMetadataProps {
   image: any;

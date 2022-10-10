@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import post from "../API/Post";
-import INewPost from "../API/types/INewPost";
-import IPost from "../API/types/IPost";
-import { AuthContext } from "../Contexts/Auth";
+import { useContext, useState } from "react";
+import INewPost from "../../API/types/INewPost";
+import IPost from "../../API/types/IPost";
+import { AuthContext } from "../../Contexts/Auth";
 import ImageUpload from "./ImageUpload";
 import NewPostFormMetadata from "./NewPostFormMetadata";
 import { useNavigate } from "react-router-dom";
-import postMultipart from "../API/PostMultipart";
+import postMultipart from "../../API/PostMultipart";
 
 interface INewPostFormProps {
   close: () => void;

@@ -6,7 +6,7 @@ import {
   HomeIcon,
   UserCircleIcon,
 } from "@heroicons/react/20/solid";
-import NewPostForm from "./NewPostForm";
+import NewPostForm from "./NewPost/NewPostForm";
 import Modal from "./Modal";
 import { AuthContext } from "../Contexts/Auth";
 
