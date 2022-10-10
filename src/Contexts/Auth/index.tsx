@@ -68,6 +68,16 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     const userData = fetchUserData(jwt).catch((err) => console.log(err));
   }, [jwt]);
 
+  setInterval(() => {
+    get<{ access_token: string }>(jwt, "/auth/refreshToken")
+      .then((res) => {
+        if (res) {
+          updateJwt(res.access_token);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, 600000);
+
   const updateJwt = (newJwt: string) => {
     localStorage.setItem("jwt", newJwt);
     setJwt(newJwt);
