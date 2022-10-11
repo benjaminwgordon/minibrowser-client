@@ -2,6 +2,7 @@ import {
   ArrowLeftIcon,
   MinusIcon,
   PlusIcon,
+  QuestionMarkCircleIcon,
   TagIcon,
   XCircleIcon,
   XMarkIcon,
@@ -24,6 +25,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
   const [tags, setTags] = useState<ITag[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<ITag[]>([]);
+  const [isShowInstructions, setIsShowInstructions] = useState<boolean>(false);
   const { jwt } = useContext(AuthContext);
 
   const addTag = (newTag: ITag): void => {
@@ -58,7 +60,27 @@ const NewPostTags = (props: INewPostTagsProps) => {
         >
           <ArrowLeftIcon className="h-6 w-6" />
         </button>
-        <h3 className="px-4">Add Tags</h3>
+        <div
+          className="px-4"
+          onMouseEnter={() => setIsShowInstructions(true)}
+          onMouseLeave={() => setIsShowInstructions(false)}
+        >
+          <h3 className="relative flex flex-row flex-nowrap justify-center items-center">
+            Add Tags{" "}
+            <QuestionMarkCircleIcon className="ml-1 w-4 h-4 text-blue-400" />
+            {isShowInstructions ? (
+              <div className="absolute top-0 left-full bg-white w-96 rounded-lg p-3 border border-blue-200 text-sm">
+                Adding tags to your post makes it much more likely that users
+                will discover your content. If you are not sure what tags to
+                add, try adding what media your content is, e.g.
+                "Blacksmithing", "Knitting", "Miniatures"
+              </div>
+            ) : (
+              <></>
+            )}
+          </h3>
+        </div>
+
         <input
           type="button"
           value={tags.length === 0 ? "skip" : "publish"}
@@ -66,17 +88,27 @@ const NewPostTags = (props: INewPostTagsProps) => {
           className="text-blue-400 hover:cursor-pointer"
         />
       </div>
-      <div>
+      <div className="w-80 flex flex-row flex-nowrap justify-between items-center mt-2 border border-gray-200 bg-white">
         <input
           type="text"
           name="searchBarInput"
           id="searchBarInput"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="mt-2 border-t border-x border-gray-200 h-10 w-80 pl-5 outline-none"
+          className="h-10 w-80 pl-5 outline-none"
           placeholder="Search"
           autoComplete="off"
         />
+        {searchTerm !== "" ? (
+          <button
+            onClick={() => setSearchTerm("")}
+            className="h-full bg-white mr-5 text-gray-400"
+          >
+            <XMarkIcon className="w-6 h-6" />
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
       <ul className="w-full bg-white border border-gray-200 w-80 h-48 px-4">
         {searchResult.length > 0 ? (
