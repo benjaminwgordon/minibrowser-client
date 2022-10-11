@@ -7,26 +7,31 @@ import {
   XCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useState, useEffect, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import get from "../../API/Get";
 import { AuthContext } from "../../Contexts/Auth";
+import ITag from "../../Types/ITag";
 
 interface INewPostTagsProps {
+  tags: ITag[];
+  setTags: Dispatch<SetStateAction<ITag[]>>;
   back: () => void;
   launchSubmit: () => void;
 }
 
-interface ITag {
-  id: number;
-  name: string;
-}
-
 const NewPostTags = (props: INewPostTagsProps) => {
-  const [tags, setTags] = useState<ITag[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<ITag[]>([]);
   const [isShowInstructions, setIsShowInstructions] = useState<boolean>(false);
   const { jwt } = useContext(AuthContext);
+
+  const { tags, setTags } = props;
 
   const addTag = (newTag: ITag): void => {
     setTags([...tags, newTag]);
@@ -110,7 +115,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
           <></>
         )}
       </div>
-      <ul className="w-full bg-white border border-gray-200 w-80 h-48 px-4">
+      <ul className="w-full bg-white border-x border-b border-gray-200 w-80 h-48 px-4">
         {searchResult.length > 0 ? (
           searchResult.map((tag) => (
             <li
@@ -139,7 +144,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
           <></>
         )}
       </ul>
-      <div className="my-1 w-80">
+      <div className="my-2 w-80">
         <ul className="flex flex-row flex-wrap justify-start">
           {tags.map((tag) => (
             <li className="pl-3 pr-2 mr-2 mb-1 bg-indigo-500 text-white rounded-full flex flex-row items-center items-center flex-nowrap">

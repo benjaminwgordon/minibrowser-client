@@ -18,6 +18,8 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
   const { image, description, setDescription, title, setTitle, launchSubmit } =
     props;
   const { username } = useContext(AuthContext);
+  const [errors, setErrors] = useState<string>("");
+
   return (
     <div className="w-full h-full flex flex-col items-center bg-gray-100">
       <div className="w-full flex flex-row justify-between items-center h-12 px-4 border-b bg-white">
@@ -32,11 +34,20 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
         <input
           type="button"
           value="next"
-          onClick={() => launchSubmit()}
+          onClick={() => {
+            setErrors("");
+            if (title === "" || description === "") {
+              setErrors("Please add a title and caption to continue");
+            } else {
+              setErrors("");
+              launchSubmit();
+            }
+          }}
           className="text-blue-400 hover:cursor-pointer"
         />
       </div>
-      <div className="h-full py-4">
+      <div className="h-full py-4 flex flex-col justify-center items-center">
+        {errors ? <p className="text-red-400">{errors}</p> : <></>}
         <form className="flex flex-col w-96 justify-start items-center bg-white rounded-lg border m-8">
           <div className="w-full flex flex-row justify-between items-center border-b px-5 h-10">
             <label htmlFor="titleInput" className="sr-only">

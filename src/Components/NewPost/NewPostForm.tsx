@@ -7,6 +7,7 @@ import NewPostFormMetadata from "./NewPostFormMetadata";
 import { useNavigate } from "react-router-dom";
 import postMultipart from "../../API/PostMultipart";
 import NewPostTags from "./NewPostTags";
+import ITag from "../../Types/ITag";
 
 interface INewPostFormProps {
   close: () => void;
@@ -17,7 +18,7 @@ const NewPostForm = (props: INewPostFormProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isPostReady, setIsPostReady] = useState<boolean>(false);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<ITag[]>([]);
   const { jwt, username } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -58,6 +59,8 @@ const NewPostForm = (props: INewPostFormProps) => {
         />
       ) : (
         <NewPostTags
+          tags={tags}
+          setTags={setTags}
           launchSubmit={() => handleSubmit()}
           back={() => setIsPostReady(false)}
         />
