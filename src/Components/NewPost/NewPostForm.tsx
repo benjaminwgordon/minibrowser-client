@@ -6,6 +6,7 @@ import ImageUpload from "./ImageUpload";
 import NewPostFormMetadata from "./NewPostFormMetadata";
 import { useNavigate } from "react-router-dom";
 import postMultipart from "../../API/PostMultipart";
+import NewPostTags from "./NewPostTags";
 
 interface INewPostFormProps {
   close: () => void;
@@ -15,6 +16,8 @@ const NewPostForm = (props: INewPostFormProps) => {
   const [image, setImage] = useState(undefined);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [isPostReady, setIsPostReady] = useState<boolean>(false);
+  const [tags, setTags] = useState([]);
   const { jwt, username } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -41,16 +44,22 @@ const NewPostForm = (props: INewPostFormProps) => {
     <div className="w-full h-full flex justify-center items-center">
       {!image ? (
         <ImageUpload image={image} setImage={setImage} />
-      ) : (
+      ) : !isPostReady ? (
         <NewPostFormMetadata
           image={image}
           title={title}
           setTitle={setTitle}
           description={description}
           setDescription={setDescription}
+          back={() => setImage(undefined)}
           launchSubmit={() => {
-            handleSubmit();
+            setIsPostReady(true);
           }}
+        />
+      ) : (
+        <NewPostTags
+          launchSubmit={() => handleSubmit()}
+          back={() => setIsPostReady(false)}
         />
       )}
     </div>

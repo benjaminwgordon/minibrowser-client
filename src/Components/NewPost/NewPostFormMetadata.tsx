@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { BackspaceIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../../Contexts/Auth";
 
@@ -11,6 +11,7 @@ interface INewPostFormMetadataProps {
   title: string;
   setTitle: (title: string) => void;
   launchSubmit: () => void;
+  back: () => void;
 }
 
 const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
@@ -22,13 +23,12 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
       <div className="w-full flex flex-row justify-between items-center h-12 px-4 border-b bg-white">
         <button
           type="button"
-          onClick={() => {}}
-          // TODO: Make back function work
+          onClick={() => props.back()}
           className="text-blue-400"
         >
           <ArrowLeftIcon className="h-6 w-6" />
         </button>
-        <h3>Add Description</h3>
+        <h3 className="mx-4">Add Description</h3>
         <input
           type="button"
           value="next"
