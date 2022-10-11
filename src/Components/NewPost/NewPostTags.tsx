@@ -37,9 +37,8 @@ const NewPostTags = (props: INewPostTagsProps) => {
   useEffect(() => {
     if (searchTerm !== "") {
       //run a search against all available tags
-      get<ITag[]>(jwt, `/tag?${searchTerm}`)
+      get<ITag[]>(jwt, `/tag?name=${searchTerm}`)
         .then((res) => {
-          console.log({ res });
           setSearchResult(res);
         })
         .catch((err) => console.log(err));
@@ -108,10 +107,10 @@ const NewPostTags = (props: INewPostTagsProps) => {
           <></>
         )}
       </ul>
-      <div className="w-full p-2">
+      <div className="my-1 w-80">
         <ul className="flex flex-row flex-wrap justify-start">
           {tags.map((tag) => (
-            <li className="pl-3 pr-2 ml-2 bg-indigo-500 text-white rounded-full flex flex-row items-center items-center flex-nowrap">
+            <li className="pl-3 pr-2 mr-2 mb-1 bg-indigo-500 text-white rounded-full flex flex-row items-center items-center flex-nowrap">
               <span className="block h-full">{tag.name}</span>
               <button className="ml-2 h-full">
                 <XMarkIcon
