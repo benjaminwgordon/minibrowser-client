@@ -1,5 +1,6 @@
 import {
   ArrowLeftIcon,
+  CheckIcon,
   MinusIcon,
   PlusIcon,
   QuestionMarkCircleIcon,
@@ -15,6 +16,7 @@ import {
   SetStateAction,
 } from "react";
 import get from "../../API/Get";
+import post from "../../API/Post";
 import { AuthContext } from "../../Contexts/Auth";
 import ITag from "../../Types/ITag";
 
@@ -39,6 +41,16 @@ const NewPostTags = (props: INewPostTagsProps) => {
 
   const removeTag = (removedTag: ITag): void => {
     setTags(tags.filter((element) => element.id != removedTag.id));
+  };
+
+  const submitNewTag = () => {
+    const newTagName = searchTerm;
+    post<{ name: string }, ITag>(jwt, "/tag", { name: newTagName })
+      .then((res) => {
+        addTag(res);
+        setSearchTerm("");
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -74,7 +86,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
             Add Tags{" "}
             <QuestionMarkCircleIcon className="ml-1 w-4 h-4 text-blue-400" />
             {isShowInstructions ? (
-              <div className="absolute top-0 left-full bg-white w-96 rounded-lg p-3 border border-blue-200 text-sm">
+              <div className="absolute top-0 left-full z-50 bg-white w-96 rounded-lg p-3 border-2 border-blue-200 text-sm">
                 Adding tags to your post makes it much more likely that users
                 will discover your content. If you are not sure what tags to
                 add, try adding what media your content is, e.g.
@@ -93,21 +105,21 @@ const NewPostTags = (props: INewPostTagsProps) => {
           className="text-blue-400 hover:cursor-pointer"
         />
       </div>
-      <div className="w-80 flex flex-row flex-nowrap justify-between items-center mt-2 border border-gray-200 bg-white">
+      <div className="relative w-80 flex flex-row flex-nowrap justify-between items-center mt-2 border border-gray-200 bg-white">
         <input
           type="text"
           name="searchBarInput"
           id="searchBarInput"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="h-10 w-80 pl-5 outline-none"
-          placeholder="Search"
+          className="h-10 w-80 pl-5 outline-none focus:border border-indigo-400"
+          placeholder="Search for tags"
           autoComplete="off"
         />
         {searchTerm !== "" ? (
           <button
             onClick={() => setSearchTerm("")}
-            className="h-full bg-white mr-5 text-gray-400"
+            className="absolute left-72 bg-white text-gray-400"
           >
             <XMarkIcon className="w-6 h-6" />
           </button>
@@ -140,23 +152,51 @@ const NewPostTags = (props: INewPostTagsProps) => {
               )}
             </li>
           ))
+        ) : searchTerm.length > 0 ? (
+          <div>
+            <div>
+              <span className="">
+                Your search didn't match any existing tags, would you like to
+                create a new tag with the name
+              </span>
+              <span className="text-indigo-600">{` ${searchTerm}`}</span>
+              <span>?</span>
+            </div>
+            <div className="w-full flex flex-row justify-end items-center">
+              <button onClick={() => submitNewTag()}>
+                <CheckIcon className="h-8 w-8 text-green-400"></CheckIcon>
+              </button>
+              <button onClick={() => setSearchTerm("")}>
+                <XMarkIcon className="h-8 w-8 text-red-400"></XMarkIcon>
+              </button>
+            </div>
+          </div>
         ) : (
-          <></>
+          <p className="mt-2 text-gray-600">
+            Add tags to make your post easier to find
+          </p>
         )}
       </ul>
       <div className="my-2 w-80">
         <ul className="flex flex-row flex-wrap justify-start">
-          {tags.map((tag) => (
-            <li className="pl-3 pr-2 mr-2 mb-1 bg-indigo-500 text-white rounded-full flex flex-row items-center items-center flex-nowrap">
-              <span className="block h-full">{tag.name}</span>
-              <button className="ml-2 h-full">
-                <XMarkIcon
-                  className="h-4 w-4 text-white"
-                  onClick={() => removeTag(tag)}
-                />
-              </button>
-            </li>
-          ))}
+          {tags.length > 0 ? (
+            tags.map((tag) => (
+              <li
+                key={tag.id}
+                className="pl-3 pr-2 mr-2 mb-1 bg-indigo-500 text-white rounded-full flex flex-row items-center items-center flex-nowrap"
+              >
+                <span className="block h-full">{tag.name}</span>
+                <button className="ml-2 h-full">
+                  <XMarkIcon
+                    className="h-4 w-4 text-white"
+                    onClick={() => removeTag(tag)}
+                  />
+                </button>
+              </li>
+            ))
+          ) : (
+            <></>
+          )}
         </ul>
       </div>
     </div>

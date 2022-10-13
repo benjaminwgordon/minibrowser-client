@@ -37,6 +37,16 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
 
   //catches unset in-memory jwts and attempts to reset them from session storage
   useEffect(() => {
+    setInterval(() => {
+      get<{ access_token: string }>(jwt, "/auth/refreshToken")
+        .then((res) => {
+          if (res) {
+            updateJwt(res.access_token);
+          }
+        })
+        .catch((err) => console.log(err));
+    }, 600000);
+
     if (jwt === "") {
       const storedToken = localStorage.getItem("jwt");
       if (storedToken) {
@@ -53,7 +63,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
         }
       }
     }
-  }, []);
+  }, [jwt]);
 
   useEffect(() => {
     async function fetchUserData(jwt: string) {
@@ -67,16 +77,6 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     }
     const userData = fetchUserData(jwt).catch((err) => console.log(err));
   }, [jwt]);
-
-  setInterval(() => {
-    get<{ access_token: string }>(jwt, "/auth/refreshToken")
-      .then((res) => {
-        if (res) {
-          updateJwt(res.access_token);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, 600000);
 
   const updateJwt = (newJwt: string) => {
     localStorage.setItem("jwt", newJwt);

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import postMultipart from "../../API/PostMultipart";
 import NewPostTags from "./NewPostTags";
 import ITag from "../../Types/ITag";
+import post from "../../API/Post";
 
 interface INewPostFormProps {
   close: () => void;
@@ -23,6 +24,7 @@ const NewPostForm = (props: INewPostFormProps) => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    console.log({ tags });
     if (image === undefined) {
       throw new Error();
     }
@@ -33,6 +35,17 @@ const NewPostForm = (props: INewPostFormProps) => {
     };
     postMultipart<INewPost, IPost>(jwt, "/post", body)
       .then((result) => {
+        // if user added tags, upload them
+        console.log({ newPostResult: result });
+        if (tags.length !== 0) {
+          post<{ post: IPost; tags: ITag[] }, IPost & ITag[]>(
+            jwt,
+            `/post/${result.id}/tag`,
+            { post: result, tags }
+          ).then((res) => {
+            console.log(res);
+          });
+        }
         props.close();
         navigate(`/user/${username}`);
       })

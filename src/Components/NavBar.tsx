@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
+import SearchBar from "./Search/SearchBar";
 import {
   PlusCircleIcon,
   HomeIcon,
