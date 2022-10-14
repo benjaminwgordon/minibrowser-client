@@ -9,11 +9,17 @@ import {
 import NewPostForm from "./NewPost/NewPostForm";
 import Modal from "./Modal";
 import { AuthContext } from "../Contexts/Auth";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 
 const NavBar = () => {
   // TODO: The NavBar currently controls the new post modal form, but this feels hard to track.  Condiser moving it in the future for clarity
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState<boolean>(false);
-  const { username } = useContext(AuthContext);
+  const { username, updateJwt } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    updateJwt("");
+  };
 
   return (
     <div className="float-left sticky z-50 top-0 bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
@@ -41,6 +47,12 @@ const NavBar = () => {
           >
             <UserCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
           </Link>
+          <button
+            className="text-black hover:text-gray-600 select-none"
+            onClick={() => handleLogout()}
+          >
+            <XCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
+          </button>
         </nav>
       </div>
       {isNewPostModalOpen ? (
