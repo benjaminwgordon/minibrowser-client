@@ -1,9 +1,10 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { TagIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import IPost from "../API/types/IPost";
 import get from "../API/Get";
 import { AuthContext } from "../Contexts/Auth";
+import ITag from "../Types/ITag";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -12,6 +13,9 @@ const PostDetail = () => {
   const location = useLocation();
 
   const [post, setPost] = useState<IPost | undefined>(undefined);
+  const [tags, setTags] = useState<
+    { postId: number; tagId: number; tag: ITag }[] | undefined
+  >(undefined);
 
   useEffect(() => {
     function fetchPost(): void {
@@ -19,11 +23,26 @@ const PostDetail = () => {
       get<IPost>(jwt, `/post/${params.postId}`)
         .then((res) => {
           setPost(res);
+          console.log({ post: res });
         })
         .catch((err) => console.log(err));
     }
     fetchPost();
   }, [params]);
+
+  useEffect(() => {
+    if (post?.id) {
+      get<{ postId: number; tagId: number; tag: ITag }[]>(
+        jwt,
+        `/post/${post.id}/tag`
+      )
+        .then((res) => {
+          setTags(res);
+          console.log({ tags: res });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [post]);
 
   return post ? (
     <div
@@ -65,9 +84,21 @@ const PostDetail = () => {
             <p className="mt-2 pl-2 text-sm">{post.description}</p>
             <div className="flex justify-self-end">
               <ul>
-                <li>comment #1</li>
-                <li>comment #2</li>
-                <li>comment #3</li>
+                {tags?.map((postTag) => (
+                  <li key={postTag.tag.id} className="">
+                    <button
+                      onClick={() =>
+                        navigate(`/post/feed?tagId=${postTag.tag.id}`)
+                      }
+                      className="flex flex-row flex-nowrap justify-start items-center"
+                    >
+                      <TagIcon className="w-5 h-5 text-indigo-500 hover:text-indigo-600 mr-2" />
+                      <span className="text-indigo-500 hover:text-indigo-600">
+                        {postTag.tag.name}
+                      </span>
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
