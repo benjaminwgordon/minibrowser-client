@@ -15,6 +15,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
+import { PropagateLoader } from "react-spinners";
 import get from "../../API/Get";
 import post from "../../API/Post";
 import { AuthContext } from "../../Contexts/Auth";
@@ -31,6 +32,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<ITag[]>([]);
   const [isShowInstructions, setIsShowInstructions] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { jwt } = useContext(AuthContext);
 
   const { tags, setTags } = props;
@@ -44,23 +46,33 @@ const NewPostTags = (props: INewPostTagsProps) => {
   };
 
   const submitNewTag = () => {
+    setIsLoading(true);
     const newTagName = searchTerm;
     post<{ name: string }, ITag>(jwt, "/tag", { name: newTagName })
       .then((res) => {
         addTag(res);
         setSearchTerm("");
+        setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
     if (searchTerm !== "") {
       //run a search against all available tags
+      setIsLoading(true);
       get<ITag[]>(jwt, `/tag?name=${searchTerm}`)
         .then((res) => {
           setSearchResult(res);
+          setIsLoading(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+        });
     } else {
       setSearchResult([]);
     }
@@ -128,7 +140,11 @@ const NewPostTags = (props: INewPostTagsProps) => {
         )}
       </div>
       <ul className="w-full bg-white border-x border-b border-gray-200 w-80 h-48 px-4">
-        {searchResult.length > 0 ? (
+        {isLoading ? (
+          <div className="w-full py-4 flex flex-row justify-center items-center">
+            <PropagateLoader size={20} color={"#818cf8"} />
+          </div>
+        ) : searchResult.length > 0 ? (
           searchResult.map((tag) => (
             <li
               key={tag.id}

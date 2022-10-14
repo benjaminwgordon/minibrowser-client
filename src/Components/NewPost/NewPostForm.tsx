@@ -9,6 +9,7 @@ import postMultipart from "../../API/PostMultipart";
 import NewPostTags from "./NewPostTags";
 import ITag from "../../Types/ITag";
 import post from "../../API/Post";
+import { PropagateLoader } from "react-spinners";
 
 interface INewPostFormProps {
   close: () => void;
@@ -19,12 +20,13 @@ const NewPostForm = (props: INewPostFormProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isPostReady, setIsPostReady] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [tags, setTags] = useState<ITag[]>([]);
   const { jwt, username } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    console.log({ tags });
+    setIsUploading(true);
     if (image === undefined) {
       throw new Error();
     }
@@ -43,20 +45,27 @@ const NewPostForm = (props: INewPostFormProps) => {
             `/post/${result.id}/tag`,
             { post: result, tags }
           ).then((res) => {
-            console.log(res);
+            setIsUploading(false);
+            props.close();
+            navigate(`/user/${username}`);
           });
         }
-        props.close();
-        navigate(`/user/${username}`);
       })
       .catch((error) => {
         console.log({ error });
+        props.close();
+        setIsUploading(false);
       });
   };
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      {!image ? (
+      {isUploading ? (
+        <div className="w-96 h-96 bg-white rounded-lg flex flex-col justify-center items-center">
+          <p className="mb-2 text-indigo-400 text-xl">Uploading your image</p>
+          <PropagateLoader size={20} color={"#818cf8"} />
+        </div>
+      ) : !image ? (
         <ImageUpload image={image} setImage={setImage} />
       ) : !isPostReady ? (
         <NewPostFormMetadata

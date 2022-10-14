@@ -84,7 +84,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
               placeholder="Enter a caption..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full h-24"
+              className="w-full h-24 p-1"
               maxLength={128}
               wrap="hard"
             />
