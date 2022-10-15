@@ -29,7 +29,7 @@ const SignupForm = () => {
       password,
     });
     if (user) {
-      navigate("/post");
+      navigate(`/auth/confirm?email=${email}`);
     } else {
       console.log("failed to update auth token");
     }

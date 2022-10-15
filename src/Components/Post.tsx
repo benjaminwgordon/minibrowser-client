@@ -17,7 +17,7 @@ const Post = (props: IPostProps) => {
 
   return (
     <div className="flex flex-col justify-center w-96 rounded-lg bg-white border">
-      <div className="flex flex-row justify-between items-center px-5">
+      <div className="flex flex-row justify-between items-center px-5 border-b border-gray-100">
         <h3 className="flex items-center text-lg h-10">{props.title}</h3>
         <a
           onClick={() => navigate(`/user/${props.author.username}`)}
@@ -33,7 +33,9 @@ const Post = (props: IPostProps) => {
       >
         <img src={props.content} alt="user uploaded content" loading="lazy" />
       </div>
-      <p className="mt-2 pl-2 text-sm">{props.description}</p>
+      <div className="border-t border-gray-100">
+        <p className="mt-2 pl-2 text-sm">{props.description}</p>
+      </div>
     </div>
   );
 };

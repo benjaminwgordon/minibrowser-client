@@ -12,6 +12,8 @@ import UserProfile from "./Components/UserProfile";
 import { useEffect } from "react";
 import "./App.css";
 import PostDetail from "./Components/PostDetail";
+import SignupConfirmation from "./Components/EmailValidation/SignupConfirmation";
+import EmailValidationSuccess from "./Components/EmailValidation/EmailValidationSuccess";
 
 function App() {
   useEffect(() => {
@@ -28,6 +30,11 @@ function App() {
           <Route path="/auth" element={<AuthFlow />}>
             <Route index element={<LoginForm />} />
             <Route path="signup" element={<SignupForm />} />
+            <Route path="confirm" element={<SignupConfirmation />} />
+            <Route
+              path="emailConfirmationSuccess"
+              element={<EmailValidationSuccess />}
+            />
           </Route>
 
           {/* All routes in this block are accessible only to authed users */}
