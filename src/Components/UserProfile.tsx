@@ -1,3 +1,4 @@
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
@@ -32,16 +33,19 @@ const UserProfile = () => {
         console.log(error);
         setIsLoading(false);
       });
-  }, [username]);
+  }, [jwt, username]);
 
   return isLoading ? (
     <div className="w-full pt-8 flex flex-col justify-center items-center">
       <PropagateLoader size={20} color={"#818cf8"} />
     </div>
   ) : user ? (
-    <div className="w-screen flex flex-col justify-evenly ">
-      <div className="flex flex-row p-4  justify-center border-b rounded-md">
-        <h1 className="text-xl font-bold">{user.username}</h1>
+    <div className="w-full flex flex-col justify-evenly ">
+      <div className="flex flex-row p-4 pl-8 justify-start border-b rounded-md">
+        <div className="text-xl font-bold flex flex-row">
+          <UserCircleIcon className="w-8 h-8 mr-4" />
+          <h2>{user.username}</h2>
+        </div>
       </div>
       <div>
         <ul className="flex flex-row justify-evenly flex-wrap">

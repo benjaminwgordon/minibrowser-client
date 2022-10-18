@@ -14,6 +14,8 @@ import "./App.css";
 import PostDetail from "./Components/PostDetail";
 import SignupConfirmation from "./Components/EmailValidation/SignupConfirmation";
 import EmailValidationSuccess from "./Components/EmailValidation/EmailValidationSuccess";
+import SidebarNav from "./Components/SidebarNav";
+import Nav from "./Components/Nav";
 
 function App() {
   useEffect(() => {
@@ -36,28 +38,27 @@ function App() {
               element={<EmailValidationSuccess />}
             />
           </Route>
-
-          {/* All routes in this block are accessible only to authed users */}
-          <Route path="/" element={<PrivateOutlet />}>
-            <Route path="post" element={<Posts />}>
-              <Route index element={<Navigate to="feed" replace />} />
-              <Route path="feed" element={<PostFeed />}>
-                <Route path="post/:postId" element={<PostDetail />} />
+          <Route path="/" element={<Nav />}>
+            {/* All routes in this block are accessible only to authed users */}
+            <Route path="post" element={<PrivateOutlet />}>
+              <Route path="" element={<Posts />}>
+                <Route path="feed" element={<PostFeed />}>
+                  <Route path="post/:postId" element={<PostDetail />} />
+                </Route>
+                <Route path="*" element={<NoRoute />} />
               </Route>
-              <Route path="*" element={<NoRoute />} />
             </Route>
             <Route path="user" element={<User />}>
-              <Route path="me" element={<UserProfile />} />
               <Route path=":username" element={<UserProfile />}>
                 <Route path="post/:postId" element={<PostDetail />} />
               </Route>
             </Route>
-          </Route>
 
-          {/* Invalid route catch block */}
-          <Route path="/*" element={<PrivateOutlet />}>
-            <Route index element={<Navigate to="noRoute" replace />} />
-            <Route path="noRoute" element={<NoRoute />} />
+            {/* Invalid route catch block */}
+            <Route path="/*" element={<PrivateOutlet />}>
+              <Route index element={<Navigate to="noRoute" replace />} />
+              <Route path="noRoute" element={<NoRoute />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

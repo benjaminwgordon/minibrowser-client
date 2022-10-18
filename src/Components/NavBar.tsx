@@ -22,17 +22,17 @@ const NavBar = () => {
   };
 
   return (
-    <div className="float-left sticky z-50 top-0 bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
+    <div className="bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
       <div className="flex items-center justify-between max-w-4xl w-full">
         <Link
-          to={"/post"}
+          to={"/post/feed"}
           className="text-black text-lg hover:text-gray-600 select-none w-36"
         >
           MiniBrowser
         </Link>
         <SearchBar />
         <nav className="flex w-36 justify-between">
-          <Link to={"/post"}>
+          <Link to={"/post/feed"}>
             <HomeIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
           </Link>
           <button

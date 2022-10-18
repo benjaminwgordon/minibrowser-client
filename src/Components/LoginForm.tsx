@@ -9,8 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
 
-  const { jwt, updateJwt, previousLocation, updatePreviousLocation } =
-    useContext(AuthContext);
+  const { jwt, updateJwt, previousLocation } = useContext(AuthContext);
 
   let navigate = useNavigate();
 
@@ -23,7 +22,7 @@ const LoginForm = () => {
         navigate("/post");
       }
     }
-  }, []);
+  }, [jwt, navigate, previousLocation]);
 
   interface ILogin {
     email: string;
@@ -43,7 +42,7 @@ const LoginForm = () => {
     })
       .then((result) => {
         updateJwt(result.access_token);
-        navigate("/post");
+        navigate("/post/feed");
       })
       .catch((error: RequestError) => {
         console.log(error);
