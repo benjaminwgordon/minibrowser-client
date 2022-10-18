@@ -22,7 +22,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
+    <div className="z-50 bg-white w-full h-16 px-5 border border-gray-200 flex justify-center items-center">
       <div className="flex items-center justify-between max-w-4xl w-full">
         <Link
           to={"/post/feed"}

@@ -56,7 +56,7 @@ const PostDetail = () => {
       }}
     >
       <div
-        className="flex flex-col justify-start h-3/4 rounded-lg bg-white m-5"
+        className="flex flex-col justify-start h-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-center items-center border-b border-gray-200">
@@ -103,6 +103,7 @@ const PostDetail = () => {
             </div>
           </div>
         </div>
+        <div className="h-12 border-t border-gray-200"></div>
       </div>
     </div>
   ) : (

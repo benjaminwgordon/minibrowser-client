@@ -63,7 +63,7 @@ const SearchBar = () => {
       />
       {isSearchFocused &&
       (searchUserResult.length > 0 || searchTagResult.length > 0) ? (
-        <div className="absolute w-96 bg-white rounded-bt-md border border-gray-200 h-48">
+        <div className="absolute w-96 bg-white rounded-bt-md border border-gray-200 h-48 z-50">
           {searchUserResult.length > 0 ? (
             <SearchUserResults
               resetSearchUI={() => resetSearchUI()}

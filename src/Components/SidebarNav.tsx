@@ -13,22 +13,34 @@ const SidebarNav = () => {
 
   return (
     <div className="bg-white border-r border-gray-200 h-full">
-      <div className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer">
+      <Link
+        to="/post/feed"
+        className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer"
+      >
         <Square3Stack3DIcon className="w-6 h-6 mr-2" />
-        <Link to="/post/feed">Home</Link>
-      </div>
-      <div className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer">
+        <p>Home</p>
+      </Link>
+      <Link
+        to="/post/feed?subscribedTags=true"
+        className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer"
+      >
         <BellIcon className="w-6 h-6 mr-2" />
-        <Link to="/post/feed?subscribedTags=true">Subscribed</Link>
-      </div>
-      <div className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer">
+        <p>Subscribed</p>
+      </Link>
+      <Link
+        to="/tag"
+        className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer"
+      >
         <RectangleGroupIcon className="w-6 h-6 mr-2" />
-        <Link to="/tag">My Tags</Link>
-      </div>
-      <div className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer">
+        <p>My Tags</p>
+      </Link>
+      <Link
+        to="/tag"
+        className="pl-4 w-full h-16 flex justify-start items-center bg-gray-200 hover:bg-gray-300 hover:cursor-pointer"
+      >
         <MagnifyingGlassIcon className="w-6 h-6 mr-2" />
-        <Link to="/tag">Explore</Link>
-      </div>
+        <p>Explore</p>
+      </Link>
     </div>
   );
 };

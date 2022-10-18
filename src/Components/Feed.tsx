@@ -6,6 +6,7 @@ import get from "../API/Get";
 import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/Auth";
 import Button from "./Button";
+import ExploreTagView from "./ExploreTagView";
 import Post from "./Post";
 import SubscribeToTagWidget from "./SubscribeToTagWidget";
 
@@ -61,40 +62,47 @@ const Feed = () => {
   }, [jwt, searchParams]);
 
   return (
-    <div className="flex flex-column justify-center items-center mt-8">
+    <div className="w-full flex flex-column justify-center items-center">
       {isLoading ? (
         <div className="">
           <PropagateLoader size={20} color={"#818cf8"} />
         </div>
       ) : (
-        <div>
-          {isTagRequest ? (
-            <div className="w-full h-16 mb-4 p-2 px-4 bg-white rounded-md flex justify-center items-center rounded-md">
+        <div className="w-full relative flex flex-col items-center">
+          {isTagRequest && (
+            <div className="sticky top-0 w-full h-16 mb-4 p-2 px-4 bg-white rounded-md flex justify-center items-center rounded-md border-b border-gray-200">
               <SubscribeToTagWidget tagId={tagId} />
             </div>
-          ) : (
-            <></>
           )}
-          <ul>
-            {posts.length > 0 ? (
-              posts.map((post) => {
-                return (
-                  <li key={post.id} className="mb-8">
-                    <Post
-                      id={post.id}
-                      title={post.title}
-                      content={post.content}
-                      authorId={post.author.id}
-                      author={post.author}
-                      description={post.description}
-                    />
-                  </li>
-                );
-              })
-            ) : (
-              <p>There are no posts yet for this tag</p>
-            )}
-          </ul>
+          <div className="mt-4 w-96 flex flex-row-reverse flex-nowrap">
+            <ul>
+              {posts.length > 0 ? (
+                posts.map((post) => {
+                  return (
+                    <li key={post.id} className="mb-8">
+                      <Post
+                        id={post.id}
+                        title={post.title}
+                        content={post.content}
+                        authorId={post.author.id}
+                        author={post.author}
+                        description={post.description}
+                      />
+                    </li>
+                  );
+                })
+              ) : isSubscribedRequest ? (
+                <p className="mt-8">
+                  You are not subscribed to any tags yet, try subscribing to
+                  some top tags
+                </p>
+              ) : (
+                <p className="mt-8">
+                  There are no posts associated with this tag
+                </p>
+              )}
+            </ul>
+          </div>
         </div>
       )}
     </div>
