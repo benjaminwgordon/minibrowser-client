@@ -16,6 +16,7 @@ import SignupConfirmation from "./Components/EmailValidation/SignupConfirmation"
 import EmailValidationSuccess from "./Components/EmailValidation/EmailValidationSuccess";
 import SidebarNav from "./Components/SidebarNav";
 import Nav from "./Components/Nav";
+import TopTags from "./Components/TopTags";
 
 function App() {
   useEffect(() => {
@@ -53,6 +54,8 @@ function App() {
                 <Route path="post/:postId" element={<PostDetail />} />
               </Route>
             </Route>
+
+            <Route path="tag" element={<TopTags />}></Route>
 
             {/* Invalid route catch block */}
             <Route path="/*" element={<PrivateOutlet />}>

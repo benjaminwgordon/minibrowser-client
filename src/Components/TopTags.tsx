@@ -1,16 +1,24 @@
 import { TagIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import get from "../API/Get";
+import { AuthContext } from "../Contexts/Auth";
 import ITag from "../Types/ITag";
 
-interface ITopTagsProps {
-  tags: ITag[];
-}
-
-const TopTags = (props: ITopTagsProps) => {
+const TopTags = () => {
   const navigate = useNavigate();
+  const [topTags, setTopTags] = useState<ITag[]>([]);
+  const { jwt } = useContext(AuthContext);
 
-  const topTagList = props.tags.map((tag) => (
+  useEffect(() => {
+    get<ITag[]>(jwt, "/tag/top?take=20")
+      .then((res) => {
+        setTopTags(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const topTagList = topTags.map((tag) => (
     <li
       key={tag.id}
       className="flex flex-row flex-nowrap justify-start items-center text-indigo-400 hover:text-indigo-500"
@@ -23,7 +31,14 @@ const TopTags = (props: ITopTagsProps) => {
     </li>
   ));
 
-  return <ul className="ml-2">{topTagList}</ul>;
+  return (
+    <div>
+      <div>
+        <h3 className="pl-4 text-xl">Explore these top tags</h3>
+      </div>
+      <ul className="ml-6">{topTagList}</ul>;
+    </div>
+  );
 };
 
 export default TopTags;

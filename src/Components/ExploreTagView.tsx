@@ -30,7 +30,7 @@ const ExploreTagView = () => {
       {isLoading ? (
         <PropagateLoader size={20} color={"#818cf8"} />
       ) : (
-        <TopTags tags={tags} />
+        <TopTags />
       )}
     </div>
   );
