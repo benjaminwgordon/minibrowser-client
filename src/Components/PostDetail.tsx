@@ -46,7 +46,7 @@ const PostDetail = () => {
 
   return post ? (
     <div
-      className="fixed top-0 left-0 z-10 w-screen h-screen backdrop-blur-sm backdrop-brightness-50 flex items-center justify-center"
+      className="fixed top-0 left-0 w-screen h-screen backdrop-blur-sm backdrop-brightness-50 flex items-center justify-center"
       onClick={() => {
         const unnestedLocation = location.pathname
           .split("/")
