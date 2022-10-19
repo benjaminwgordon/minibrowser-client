@@ -34,9 +34,9 @@ const TopTags = () => {
   return (
     <div>
       <div>
-        <h3 className="pl-4 text-xl">Explore these top tags</h3>
+        <h3 className="pl-4 text-xl">Check out these top tags</h3>
       </div>
-      <ul className="ml-6">{topTagList}</ul>;
+      <ul className="ml-6">{topTagList}</ul>
     </div>
   );
 };
