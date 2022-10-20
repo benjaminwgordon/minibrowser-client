@@ -71,17 +71,19 @@ const PostDetail = () => {
               className="h-0 min-h-full object-contain"
             />
           </div>
-          <div className="flex flex-col justify-between items-left w-1/3 p-2">
-            <button
-              onClick={() => navigate(`/user/${post.author.username}`)}
-              className="flex flex-row items-center"
-            >
-              <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
-              <p className="pl-1 hover:cursor-pointer">
-                {post.author.username}
-              </p>
-            </button>
-            <p className="mt-2 pl-2 text-sm">{post.description}</p>
+          <div className="flex flex-col justify-between items-left w-1/3 p-2 border-l border-gray-200">
+            <div>
+              <button
+                onClick={() => navigate(`/user/${post.author.username}`)}
+                className="flex flex-row items-center"
+              >
+                <UserCircleIcon className="w-8 h-8 hover:cursor-pointer " />
+                <p className="pl-1 hover:cursor-pointer">
+                  {post.author.username}
+                </p>
+              </button>
+              <p className="mt-2 pl-2 text-sm">{post.description}</p>
+            </div>
             <div className="flex justify-self-end">
               <ul>
                 {tags?.map((postTag) => (
