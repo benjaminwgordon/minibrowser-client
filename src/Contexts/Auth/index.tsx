@@ -35,7 +35,6 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   const [userId, setUserId] = useState<number>(-1);
   const [previousLocation, setPreviousLocation] = useState<Location>();
 
-  //catches unset in-memory jwts and attempts to reset them from session storage
   useEffect(() => {
     setInterval(() => {
       get<{ access_token: string }>(jwt, "/auth/refreshToken")
@@ -46,7 +45,10 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
         })
         .catch((err) => console.log(err));
     }, 600000);
+  }, []);
 
+  //catches unset in-memory jwts and attempts to reset them from session storage
+  useEffect(() => {
     if (jwt === "") {
       const storedToken = localStorage.getItem("jwt");
       if (storedToken) {
