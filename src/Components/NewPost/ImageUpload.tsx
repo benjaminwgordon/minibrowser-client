@@ -4,12 +4,15 @@ import React, { Dispatch, SetStateAction } from "react";
 interface IImageUploadProps {
   image: any;
   setImage: Dispatch<SetStateAction<any>>;
+  nextStep: () => void;
+  previousStep: () => void;
 }
 
 const ImageUpload = (props: IImageUploadProps) => {
   const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target && event.target.files && event.target.files[0]) {
       props.setImage(event.target.files[0]);
+      props.nextStep();
     }
   };
 

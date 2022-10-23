@@ -10,13 +10,20 @@ interface INewPostFormMetadataProps {
   setDescription: (description: string) => void;
   title: string;
   setTitle: (title: string) => void;
-  launchSubmit: () => void;
-  back: () => void;
+  nextStep: () => void;
+  previousStep: () => void;
 }
 
 const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
-  const { image, description, setDescription, title, setTitle, launchSubmit } =
-    props;
+  const {
+    image,
+    description,
+    setDescription,
+    title,
+    setTitle,
+    nextStep,
+    previousStep,
+  } = props;
   const { username } = useContext(AuthContext);
   const [errors, setErrors] = useState<string>("");
 
@@ -25,7 +32,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
       <div className="w-full flex flex-row justify-between items-center h-12 px-4 border-b bg-white">
         <button
           type="button"
-          onClick={() => props.back()}
+          onClick={() => previousStep()}
           className="text-blue-400"
         >
           <ArrowLeftIcon className="h-6 w-6" />
@@ -40,7 +47,7 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
               setErrors("Please add a title and caption to continue");
             } else {
               setErrors("");
-              launchSubmit();
+              nextStep();
             }
           }}
           className="text-blue-400 hover:cursor-pointer"

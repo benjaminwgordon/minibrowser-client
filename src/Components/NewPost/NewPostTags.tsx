@@ -24,8 +24,8 @@ import ITag from "../../Types/ITag";
 interface INewPostTagsProps {
   tags: ITag[];
   setTags: Dispatch<SetStateAction<ITag[]>>;
-  back: () => void;
-  launchSubmit: () => void;
+  nextStep: () => void;
+  previousStep: () => void;
 }
 
 const NewPostTags = (props: INewPostTagsProps) => {
@@ -84,7 +84,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
       <div className="w-full flex flex-row justify-between items-center h-12 px-4 border-b bg-white">
         <button
           type="button"
-          onClick={() => props.back()}
+          onClick={() => props.previousStep()}
           className="text-blue-400"
         >
           <ArrowLeftIcon className="h-6 w-6" />
@@ -112,8 +112,8 @@ const NewPostTags = (props: INewPostTagsProps) => {
 
         <input
           type="button"
-          value={tags.length === 0 ? "skip" : "publish"}
-          onClick={() => props.launchSubmit()}
+          value={tags.length === 0 ? "skip" : "next"}
+          onClick={() => props.nextStep()}
           className="text-blue-400 hover:cursor-pointer"
         />
       </div>
