@@ -15,7 +15,24 @@ interface INewPostFormProps {
   close: () => void;
 }
 
+enum NewPostFormSteps {
+  ImageUpload,
+  Metadata,
+  Tags,
+  Recipes,
+}
+
 const NewPostForm = (props: INewPostFormProps) => {
+  const progressiveFormStepOrder: NewPostFormSteps[] = [
+    NewPostFormSteps.ImageUpload,
+    NewPostFormSteps.Metadata,
+    NewPostFormSteps.Tags,
+    NewPostFormSteps.Recipes,
+  ];
+
+  const [currentPostFormStep, setCurrentPostFormStep] =
+    useState<NewPostFormSteps>(NewPostFormSteps.ImageUpload);
+
   const [image, setImage] = useState(undefined);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

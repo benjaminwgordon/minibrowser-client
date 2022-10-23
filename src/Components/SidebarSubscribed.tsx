@@ -34,9 +34,9 @@ const SidebarSubscribed = () => {
   return (
     <div
       onClick={() => toggleExpand()}
-      className="w-full flex flex-col justify-center items-start bg-gray-200"
+      className="w-full flex flex-col justify-center items-start"
     >
-      <div className="pl-4 w-full h-16 flex flex-row flex-nowrap justify-between items-center hover:bg-gray-300 hover:cursor-pointer">
+      <div className="pl-4 w-full h-16 flex flex-row flex-nowrap justify-between items-center hover:bg-white hover:cursor-pointer">
         <div className="flex flex-row justify-start">
           <TagIcon className="w-6 h-6 mr-2" />
           <p>My Tags</p>

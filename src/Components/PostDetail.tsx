@@ -5,6 +5,7 @@ import IPost from "../API/types/IPost";
 import get from "../API/Get";
 import { AuthContext } from "../Contexts/Auth";
 import ITag from "../Types/ITag";
+import Recipe from "./Recipe/Recipe";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ const PostDetail = () => {
               </button>
               <p className="mt-2 pl-2 text-sm">{post.description}</p>
             </div>
+            <Recipe />
             <div className="flex justify-self-end">
               <ul>
                 {tags?.map((postTag) => (
