@@ -10,7 +10,7 @@ import NewPostTags from "./NewPostTags";
 import ITag from "../../Types/ITag";
 import post from "../../API/Post";
 import { PropagateLoader } from "react-spinners";
-import NewPostRecipe from "./NewPostRecipe";
+import NewPostRecipe, { IRecipe, IRecipeStep } from "./NewPostRecipeForm";
 
 interface INewPostFormProps {
   close: () => void;
@@ -82,6 +82,8 @@ const NewPostForm = (props: INewPostFormProps) => {
   const [description, setDescription] = useState("");
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [tags, setTags] = useState<ITag[]>([]);
+  const [recipes, setRecipes] = useState<IRecipe[]>([]);
+
   const { jwt, username } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -99,22 +101,34 @@ const NewPostForm = (props: INewPostFormProps) => {
     postMultipart<INewPost, IPost>(jwt, "/post", body)
       .then((result) => {
         // if user added tags, upload them
-        console.log({ newPostResult: result });
         if (tags.length !== 0) {
           post<{ post: IPost; tags: ITag[] }, IPost & ITag[]>(
             jwt,
             `/post/${result.id}/tag`,
             { post: result, tags }
-          ).then((res) => {
-            setIsUploading(false);
-            props.close();
-            navigate(`/user/${username}`);
-          });
-        } else {
-          setIsUploading(false);
-          props.close();
-          navigate(`/user/${username}`);
+          )
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
+        // if user added recipes, upload them
+        if (recipes.length !== 0) {
+          post<IRecipe[], any>(jwt, `/post/${result.id}/recipe`, recipes)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+
+        // cleanup and nav to view new post
+        setIsUploading(false);
+        props.close();
+        navigate(`/user/${username}`);
       })
       .catch((error) => {
         console.log({ error });
@@ -160,7 +174,12 @@ const NewPostForm = (props: INewPostFormProps) => {
   );
 
   const recipesUpload = (
-    <NewPostRecipe nextStep={nextStep} previousStep={previousStep} />
+    <NewPostRecipe
+      nextStep={nextStep}
+      previousStep={previousStep}
+      recipes={recipes}
+      setRecipes={setRecipes}
+    />
   );
 
   const content = () => {

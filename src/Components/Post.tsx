@@ -1,7 +1,7 @@
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PostDetail from "./PostDetail";
+import PostDetail from "./PostDetail/PostDetail";
 
 interface IPostProps {
   id: number;
@@ -34,7 +34,7 @@ const Post = (props: IPostProps) => {
         <img src={props.content} alt="user uploaded content" loading="lazy" />
       </div>
       <div className="border-t border-gray-100">
-        <p className="mt-2 pl-2 text-sm">{props.description}</p>
+        <p className="mt-2 p-2 text-sm">{props.description}</p>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ const Modal = (props: IModalProps) => {
       onClick={() => props.close()}
     >
       <div
-        className="flex flex-col justify-start rounded-lg bg-white m-5"
+        className="flex flex-col justify-center items-center rounded-lg m-5"
         onClick={(e) => e.stopPropagation()}
       >
         {props.content}

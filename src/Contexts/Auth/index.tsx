@@ -45,7 +45,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
           }
         })
         .catch((err) => console.log(err));
-    }, 600000);
+    }, 300000);
 
     if (jwt === "") {
       const storedToken = localStorage.getItem("jwt");

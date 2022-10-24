@@ -1,11 +1,11 @@
 import { TagIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import IPost from "../API/types/IPost";
-import get from "../API/Get";
-import { AuthContext } from "../Contexts/Auth";
-import ITag from "../Types/ITag";
-import Recipe from "./Recipe/Recipe";
+import IPost from "../../API/types/IPost";
+import get from "../../API/Get";
+import { AuthContext } from "../../Contexts/Auth";
+import ITag from "../../Types/ITag";
+import PostDetailRecipeListView from "./PostDetailRecipeListView";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const PostDetail = () => {
       }}
     >
       <div
-        className="flex flex-col justify-start h-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
+        className="flex flex-col justify-start h-3/4 w-3/4 max-w-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-center items-center border-b border-gray-200">
@@ -72,8 +72,8 @@ const PostDetail = () => {
               className="h-0 min-h-full object-contain"
             />
           </div>
-          <div className="flex flex-col justify-between items-left w-1/3 p-2 border-l border-gray-200">
-            <div>
+          <div className="flex flex-col justify-start items-left w-1/3 border-l border-gray-200">
+            <div className="p-2 pb-4 border-b border-gray-200">
               <button
                 onClick={() => navigate(`/user/${post.author.username}`)}
                 className="flex flex-row items-center"
@@ -85,7 +85,9 @@ const PostDetail = () => {
               </button>
               <p className="mt-2 pl-2 text-sm">{post.description}</p>
             </div>
-            <Recipe />
+            <div className="overflow-y-scroll grow p-4">
+              <PostDetailRecipeListView postId={post.id} />
+            </div>
             <div className="flex justify-self-end">
               <ul>
                 {tags?.map((postTag) => (
