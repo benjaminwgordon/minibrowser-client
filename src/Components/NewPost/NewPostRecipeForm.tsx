@@ -8,9 +8,6 @@ export interface IRecipe {
 }
 
 export interface IRecipeStep {
-  // tool: string;
-  // ingredient: string;
-  // technique: string;
   instruction: string;
 }
 
@@ -44,7 +41,7 @@ const NewPostRecipeForm = (props: INewPostRecipeProps) => {
           className="text-blue-400 hover:cursor-pointer hover:text-blue-600"
         />
       </div>
-      <div className="w-full px-4  overflow-y-scroll">
+      <div className="w-full px-4  overflow-y-scroll flex flex-col justify-center">
         <ul className="mt-2 w-full flex flex-col">
           {recipes.map((recipe, index) => (
             <li className="mb-4">
@@ -60,7 +57,7 @@ const NewPostRecipeForm = (props: INewPostRecipeProps) => {
           onClick={() => {
             setRecipes([...recipes, { recipeFor: "", steps: [] }]);
           }}
-          className="my-4 bg-green-400 text-white rounded-lg px-2 py-1"
+          className="my-4 bg-green-400 text-white rounded-lg px-2 py-1 self-center select-none"
         >
           <p>Add a recipe</p>
         </button>

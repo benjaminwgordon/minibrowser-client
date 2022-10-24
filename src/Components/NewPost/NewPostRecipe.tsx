@@ -2,6 +2,7 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   PlusCircleIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Dispatch, SetStateAction, useState } from "react";
 import { IRecipe, IRecipeStep } from "./NewPostRecipeForm";
@@ -33,6 +34,12 @@ const NewPostRecipe = (props: INewPostRecipeProps) => {
     setRecipes(updatedRecipes);
   };
 
+  const deleteRecipe = () => {
+    const updatedRecipes = [...recipes];
+    updatedRecipes.splice(index, 1);
+    setRecipes(updatedRecipes);
+  };
+
   const deleteRecipeStep = (stepIndex: number) => {
     const updatedRecipes = [...recipes];
     updatedRecipes[index].steps.splice(stepIndex, 1);
@@ -46,13 +53,13 @@ const NewPostRecipe = (props: INewPostRecipeProps) => {
   };
 
   return (
-    <div className="w-full items-start">
+    <div className="w-full items-start bg-white rounded-md p-1">
       <div className="flex flex-col">
         <div className="flex flex-row">
-          <div className="bg-white self-start p-2 rounded-l-lg border-r border-gray-100">
+          <div className="self-start p-2">
             {!isExpandSteps ? (
               <ArrowDownIcon
-                className="w-6 h-6 bg-white"
+                className="w-6 h-6"
                 onClick={() => setIsExpandSteps(true)}
               />
             ) : (
@@ -62,20 +69,27 @@ const NewPostRecipe = (props: INewPostRecipeProps) => {
               />
             )}
           </div>
-          <div className="flex flex-col justify-center grow bg-white rounded-r-lg p-2">
+          <div className="flex flex-col justify-center grow p-2">
             <div className="">
               <label htmlFor="recipeForInput" className="sr-only">
                 What part of the model is this recipe for?
               </label>
               <div className="flex flex-row flex-nowrap justify-between items-center">
-                <input
-                  type="text"
-                  name="recipeForInput"
-                  value={recipes[index].recipeFor}
-                  placeholder="Recipe for..."
-                  className="w-48 grow px-2 text-xl font-semibold"
-                  onChange={(e) => updateRecipeFor(e.target.value)}
-                ></input>
+                <div className="flex flex-row flex-nowrap justify-between items-center">
+                  <input
+                    type="text"
+                    name="recipeForInput"
+                    value={recipes[index].recipeFor}
+                    placeholder="Recipe for..."
+                    className="w-48 grow px-2 text-xl font-semibold"
+                    onChange={(e) => updateRecipeFor(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  <button onClick={() => deleteRecipe()}>
+                    <TrashIcon className="w-6 h-6 text-red-400 hover:text-red-500" />
+                  </button>
+                </div>
               </div>
             </div>
             <div className="ml-2">

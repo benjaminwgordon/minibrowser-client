@@ -10,7 +10,8 @@ import NewPostTags from "./NewPostTags";
 import ITag from "../../Types/ITag";
 import post from "../../API/Post";
 import { PropagateLoader } from "react-spinners";
-import NewPostRecipe, { IRecipe, IRecipeStep } from "./NewPostRecipeForm";
+import NewPostRecipe, { IRecipeStep } from "./NewPostRecipeForm";
+import { IRecipe } from "./NewPostRecipeForm";
 
 interface INewPostFormProps {
   close: () => void;
@@ -88,6 +89,21 @@ const NewPostForm = (props: INewPostFormProps) => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    // remove incomplete recipesSteps
+    let cleanedRecipes = recipes.map((recipe) => {
+      const steps = recipe.steps.filter((step) => step.instruction !== "");
+      const filteredRecipe: IRecipe = {
+        recipeFor: recipe.recipeFor,
+        steps,
+      };
+      return filteredRecipe;
+    });
+
+    // removed incomplete recipes
+    cleanedRecipes = cleanedRecipes.filter((recipe) => recipe.recipeFor !== "");
+
+    console.log({ uncleanedRecipes: recipes, cleanedRecipes: cleanedRecipes });
+
     setIsUploading(true);
     if (image === undefined) {
       throw new Error();
@@ -116,7 +132,9 @@ const NewPostForm = (props: INewPostFormProps) => {
         }
         // if user added recipes, upload them
         if (recipes.length !== 0) {
-          post<IRecipe[], any>(jwt, `/post/${result.id}/recipe`, recipes)
+          post<{ recipes: IRecipe[] }, any>(jwt, `/post/${result.id}/recipe`, {
+            recipes: cleanedRecipes,
+          })
             .then((res) => {
               console.log(res);
             })
