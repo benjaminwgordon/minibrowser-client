@@ -45,7 +45,7 @@ const LoginForm = () => {
         navigate("/post/feed");
       })
       .catch((error: RequestError) => {
-        console.log(error);
+        // console.log(error);
         setErrors(error.message);
       });
   };

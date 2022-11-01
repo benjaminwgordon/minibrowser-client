@@ -25,7 +25,7 @@ const SignupConfirmation = () => {
       confirmationCode: validationCode,
     })
       .then((res) => {
-        console.log({ emailconfirm: res });
+        // console.log({ emailconfirm: res });
         navigate("/auth/emailConfirmationSucess");
       })
       .catch((err) => console.log(err));

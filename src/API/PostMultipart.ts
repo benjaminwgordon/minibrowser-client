@@ -34,7 +34,6 @@ export default async function postMultipart<BodyType, ReturnType extends {}>(
       method: "POST",
       mode: "cors",
       headers: {
-        "Access-Control-Allow-Origin": constants.baseURL,
         Authorization: "Bearer " + jwt,
       },
       body: multipartBody,
@@ -42,7 +41,7 @@ export default async function postMultipart<BodyType, ReturnType extends {}>(
     }
   ).then((response) => response.json());
 
-  console.log({ result });
+  // console.log({ result });
 
   if ("statusCode" in result) {
     throw new RequestError(result.statusCode, result.message);

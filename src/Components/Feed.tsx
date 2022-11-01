@@ -1,6 +1,6 @@
 import { BellIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
@@ -50,11 +50,11 @@ const Feed = () => {
       get<IPost[]>(jwt, request)
         .then((res) => {
           setPosts(res);
-          console.log({ res });
+          // console.log({ res });
           setIsLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
           setIsLoading(false);
         });
     };
@@ -94,7 +94,13 @@ const Feed = () => {
               ) : isSubscribedRequest ? (
                 <p className="mt-8">
                   You are not subscribed to any tags yet, try subscribing to
-                  some top tags
+                  some{" "}
+                  <Link
+                    to="/tag"
+                    className="text-indigo-400 hover:text-ingido-500 hover:cursor-pointer"
+                  >
+                    top tags
+                  </Link>
                 </p>
               ) : (
                 <p className="mt-8">

@@ -21,7 +21,7 @@ const SidebarSubscribed = () => {
     get<(IUserTagSubscription & { tag: ITag })[]>(jwt, "/tags/subscribed")
       .then((res) => {
         setSubscribedTags(res);
-        console.log({ subbedTagsList: res });
+        // console.log({ subbedTagsList: res });
       })
       .catch((err) => console.log(err));
   }, [jwt, isExpanded]);

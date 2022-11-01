@@ -22,6 +22,8 @@ export default async function post<BodyType, ReturnType extends {}>(
   target: string,
   body: BodyType
 ): Promise<ReturnType> {
+  // console.log({ baseURL: constants.baseURL });
+
   const result: ReturnType | RequestError = await fetch(
     constants.baseURL + target,
     {
@@ -29,13 +31,16 @@ export default async function post<BodyType, ReturnType extends {}>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": constants.baseURL,
         Authorization: "Bearer " + jwt,
       },
       body: JSON.stringify(body),
       credentials: "include",
     }
-  ).then((response) => response.json());
+  ).then((response) => {
+    const out = response.json();
+    // console.log({ out });
+    return out;
+  });
 
   if ("statusCode" in result) {
     throw new RequestError(result.statusCode, result.message);
