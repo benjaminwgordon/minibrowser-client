@@ -12,7 +12,7 @@ const PostDetailRecipeView = (props: IPostDetailRecipeView) => {
   const { recipeFor, RecipeStep } = props;
   const [isExpandSteps, setIsExpandSteps] = useState<boolean>(false);
 
-  console.log(RecipeStep);
+  // console.log(RecipeStep);
 
   return (
     <div className="w-full justify-start items-start mt-2 select-none border p-1">

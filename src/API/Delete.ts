@@ -29,7 +29,6 @@ export default async function deleteAPI<BodyType, ReturnType extends {}>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": constants.baseURL,
         Authorization: "Bearer " + jwt,
       },
       body: JSON.stringify(body),

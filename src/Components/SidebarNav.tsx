@@ -40,7 +40,7 @@ const SidebarNav = () => {
 
   useEffect(() => {
     const newLoc = updateNavLocation(location);
-    console.log({ newLoc });
+    // console.log({ newLoc });
     setNavLocation(newLoc);
   }, [location]);
 

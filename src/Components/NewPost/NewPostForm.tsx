@@ -36,7 +36,7 @@ const NewPostForm = (props: INewPostFormProps) => {
     useState<NewPostFormSteps>(NewPostFormSteps.ImageUpload);
 
   const nextStep = () => {
-    console.log("next step called");
+    // console.log("next step called");
     const currentStepIndex =
       progressiveFormStepOrder.indexOf(currentPostFormStep);
     if (currentStepIndex === -1) {
@@ -55,7 +55,7 @@ const NewPostForm = (props: INewPostFormProps) => {
   };
 
   const previousStep = () => {
-    console.log("previous step called");
+    // console.log("previous step called");
     const currentStepIndex =
       progressiveFormStepOrder.indexOf(currentPostFormStep);
     if (currentStepIndex === -1) {
@@ -102,7 +102,7 @@ const NewPostForm = (props: INewPostFormProps) => {
     // removed incomplete recipes
     cleanedRecipes = cleanedRecipes.filter((recipe) => recipe.recipeFor !== "");
 
-    console.log({ uncleanedRecipes: recipes, cleanedRecipes: cleanedRecipes });
+    // console.log({ uncleanedRecipes: recipes, cleanedRecipes: cleanedRecipes });
 
     setIsUploading(true);
     if (image === undefined) {
@@ -136,7 +136,7 @@ const NewPostForm = (props: INewPostFormProps) => {
             recipes: cleanedRecipes,
           })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
             })
             .catch((err) => {
               console.log(err);

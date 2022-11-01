@@ -33,7 +33,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
       })
         .then((res) => {
           if (res) {
-            console.log({ newSub: res });
+            // console.log({ newSub: res });
             setIsUserSubscibed(true);
           }
         })
@@ -44,11 +44,11 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
   };
 
   const handleUnsubscribe = async () => {
-    console.log("deleting tag id: ", tagId);
+    // console.log("deleting tag id: ", tagId);
     if (!tagId) {
       console.log("undefined tag");
     } else {
-      console.log({ deleteTagId: tagId });
+      // console.log({ deleteTagId: tagId });
       deleteAPI<{ tagId: number }, ITag>(jwt, `/tags/subscribed/${tagId}`, {
         tagId,
       })
@@ -69,7 +69,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
     Promise.all([
       get<ITag>(jwt, `/tag/${tagId}`)
         .then((res) => {
-          console.log({ res });
+          // console.log({ res });
           setTag(res);
         })
         .catch((err) => {

@@ -26,7 +26,6 @@ export default async function get<ReturnType extends {}>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": constants.baseURL,
         Authorization: "Bearer " + jwt,
       },
       credentials: "include",

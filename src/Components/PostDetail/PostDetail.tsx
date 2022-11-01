@@ -24,7 +24,7 @@ const PostDetail = () => {
       get<IPost>(jwt, `/post/${params.postId}`)
         .then((res) => {
           setPost(res);
-          console.log({ post: res });
+          // console.log({ post: res });
         })
         .catch((err) => console.log(err));
     }
@@ -39,7 +39,7 @@ const PostDetail = () => {
       )
         .then((res) => {
           setTags(res);
-          console.log({ tags: res });
+          // console.log({ tags: res });
         })
         .catch((err) => console.log(err));
     }
@@ -57,7 +57,7 @@ const PostDetail = () => {
       }}
     >
       <div
-        className="flex flex-col justify-start h-3/4 w-3/4 max-w-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
+        className="flex flex-col justify-start h-3/4 w-3/4 max-w-3/4 max-h-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-center items-center border-b border-gray-200">
@@ -88,20 +88,21 @@ const PostDetail = () => {
             <div className="overflow-y-scroll grow p-4">
               <PostDetailRecipeListView postId={post.id} />
             </div>
-            <div className="flex justify-self-end">
-              <ul>
+            <div className="justify-self-end p-2 w-full max-w-full">
+              <ul className="flex flex-row flex-wrap">
                 {tags?.map((postTag) => (
-                  <li key={postTag.tag.id} className="">
+                  <li
+                    key={postTag.tag.id}
+                    className="bg-indigo-400 text-white rounded-full pl-2 pr-3 m-1"
+                  >
                     <button
                       onClick={() =>
                         navigate(`/post/feed?tagId=${postTag.tag.id}`)
                       }
                       className="flex flex-row flex-nowrap justify-start items-center"
                     >
-                      <TagIcon className="w-5 h-5 text-indigo-500 hover:text-indigo-600 mr-2" />
-                      <span className="text-indigo-500 hover:text-indigo-600">
-                        {postTag.tag.name}
-                      </span>
+                      <TagIcon className="w-5 h-5  mr-2" />
+                      <span className="">{postTag.tag.name}</span>
                     </button>
                   </li>
                 ))}

@@ -25,7 +25,7 @@ const NewPostRecipe = (props: INewPostRecipeProps) => {
     const updatedRecipes = [...recipes];
     updatedRecipes[index].steps.push(newStep);
     setRecipes(updatedRecipes);
-    console.log(recipes);
+    // console.log(recipes);
   };
 
   const updateRecipeStep = (stepIndex: number, instruction: string) => {
