@@ -11,7 +11,7 @@ import User from "./Components/User";
 import UserProfile from "./Components/UserProfile";
 import { useEffect } from "react";
 import "./App.css";
-import PostDetail from "./Components/PostDetail";
+import PostDetail from "./Components/PostDetail/PostDetail";
 import SignupConfirmation from "./Components/EmailValidation/SignupConfirmation";
 import EmailValidationSuccess from "./Components/EmailValidation/EmailValidationSuccess";
 import SidebarNav from "./Components/SidebarNav";
@@ -19,12 +19,6 @@ import Nav from "./Components/Nav";
 import TopTags from "./Components/TopTags";
 
 function App() {
-  useEffect(() => {
-    document.body.classList.add("h-full");
-    document.documentElement.classList.add("h-full");
-    document.documentElement.classList.add("bg-gray-50");
-  }, []);
-
   return (
     <AuthProvider>
       <BrowserRouter>
