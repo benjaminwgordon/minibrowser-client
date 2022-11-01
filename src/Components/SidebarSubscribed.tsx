@@ -24,7 +24,7 @@ const SidebarSubscribed = () => {
         // console.log({ subbedTagsList: res });
       })
       .catch((err) => console.log(err));
-  }, [jwt, isExpanded]);
+  }, [isExpanded]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);

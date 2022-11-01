@@ -22,7 +22,7 @@ const LoginForm = () => {
         navigate("/post");
       }
     }
-  }, [jwt, navigate, previousLocation]);
+  }, [navigate, previousLocation]);
 
   interface ILogin {
     email: string;

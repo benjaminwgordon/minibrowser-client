@@ -33,7 +33,7 @@ const UserProfile = () => {
         console.log(error);
         setIsLoading(false);
       });
-  }, [jwt, username]);
+  }, [username]);
 
   return isLoading ? (
     <div className="w-full pt-8 flex flex-col justify-center items-center">

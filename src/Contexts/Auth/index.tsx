@@ -45,6 +45,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
         })
         .catch((err) => console.log(err));
     }, 300000);
+  }, []);
 
   //catches unset in-memory jwts and attempts to reset them from session storage
   useEffect(() => {
