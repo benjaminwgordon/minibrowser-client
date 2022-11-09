@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import { AnyAaaaRecord } from "dns";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Location } from "react-router-dom";
 import get from "../../API/Get";
 import IUser from "../../API/types/IUser";
@@ -78,7 +79,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
       }
     }
     const userData = fetchUserData(jwt).catch((err) => console.log(err));
-  }, [jwt]);
+  }, []);
 
   const updateJwt = (newJwt: string) => {
     localStorage.setItem("jwt", newJwt);
