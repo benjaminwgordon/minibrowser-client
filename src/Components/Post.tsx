@@ -16,7 +16,7 @@ const Post = (props: IPostProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col justify-center w-96 rounded-lg bg-white border">
+    <div className="flex flex-col justify-center w-96 rounded-md bg-white border">
       <div className="flex flex-row justify-between items-center px-5 border-b border-gray-100">
         <h3 className="flex items-center text-lg h-10">{props.title}</h3>
         <a

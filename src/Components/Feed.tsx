@@ -62,7 +62,7 @@ const Feed = () => {
   }, [jwt, searchParams]);
 
   return (
-    <div className="w-full flex flex-column justify-center items-center">
+    <div className="w-full flex flex-column justify-center items-center pb-16">
       {isLoading ? (
         <div className="">
           <PropagateLoader size={20} color={"#818cf8"} />
