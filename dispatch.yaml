@@ -1,5 +1,0 @@
-dispatch:
-  - url: "api.minipainters.net/*"
-    service: server
-  - url: "minipainters.net/*"
-    service: client
