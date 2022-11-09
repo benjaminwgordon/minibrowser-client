@@ -13,6 +13,7 @@ import "./App.css";
 import PostDetail from "./Components/PostDetail/PostDetail";
 import SignupConfirmation from "./Components/EmailValidation/SignupConfirmation";
 import EmailValidationSuccess from "./Components/EmailValidation/EmailValidationSuccess";
+import SidebarNav from "./Components/SidebarNav";
 import Nav from "./Components/Nav";
 import TopTags from "./Components/TopTags";
 
