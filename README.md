@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# MiniPainters
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Have you ever wondered how to paint perfect rust on the treads of a model M4 Sherman? How about perfecting your Edge Highlighting technique for your new miniature wargaming army?
 
-## Available Scripts
+[Minipainters](minipainters.net) is a social media application made specifically for miniature hobbyists, where you can find and share paint schemes and tutorials for all kinds of miniatures hobbies.
 
-In the project directory, you can run:
+Join today to discover new techniques and paint schemes, and keep up to date with all of your friends as they make progress on their current projects.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Upload and view images of painted miniature models
+- Upload and view detailed recipes to recreate other painter's paint schemes
+- Subscribe to tags to curate a custom content feed that matches your preferences
+- Discover new content by browsing new Tags
+- Search for Users and Tags through a global search bar
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Upcoming features
 
-### `npm test`
+- Subscribe to other users to keep up to date with their in progress projects
+- Better support for new types of content (Terrain, Army Compositions, etc...)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- NestJS/Express
+- React
+- Tailwind
+- PostgreSQL
+- Google App Engine
