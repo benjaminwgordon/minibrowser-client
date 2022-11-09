@@ -44,7 +44,7 @@ const NewPostRecipeForm = (props: INewPostRecipeProps) => {
       <div className="w-full px-4  overflow-y-scroll flex flex-col justify-center">
         <ul className="mt-2 w-full flex flex-col">
           {recipes.map((recipe, index) => (
-            <li className="mb-4">
+            <li className="mb-4" key={index}>
               <NewPostRecipe
                 index={index}
                 recipes={props.recipes}

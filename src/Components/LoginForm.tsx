@@ -124,8 +124,8 @@ const LoginForm = () => {
         </form>
         {errors ? (
           <ul>
-            {errors.map((error) => (
-              <li>{error}</li>
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
             ))}
           </ul>
         ) : (

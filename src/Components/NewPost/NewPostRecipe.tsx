@@ -86,7 +86,7 @@ const NewPostRecipe = (props: INewPostRecipeProps) => {
                   ></input>
                 </div>
                 <div>
-                  <button onClick={() => deleteRecipe()}>
+                  <button tabIndex={-1} onClick={() => deleteRecipe()}>
                     <TrashIcon className="w-6 h-6 text-red-400 hover:text-red-500" />
                   </button>
                 </div>
@@ -95,16 +95,19 @@ const NewPostRecipe = (props: INewPostRecipeProps) => {
             <div className="ml-2">
               {isExpandSteps &&
                 recipes[index].steps?.map((recipeStep, index) => (
-                  <NewRecipeStep
-                    step={recipeStep}
-                    stepNumber={index}
-                    updateRecipeStep={updateRecipeStep}
-                    deleteRecipeStep={deleteRecipeStep}
-                  />
+                  <li key={index}>
+                    <NewRecipeStep
+                      step={recipeStep}
+                      stepNumber={index}
+                      updateRecipeStep={updateRecipeStep}
+                      deleteRecipeStep={deleteRecipeStep}
+                    />
+                  </li>
                 ))}
               {isExpandSteps && (
                 <div className="h-6 w-full flex flex-row flex-nowrap">
                   <button
+                    tabIndex={-1}
                     className="text-green-500 flex flex-row flex-nowrap items-center"
                     onClick={(e) => {
                       e.preventDefault();
