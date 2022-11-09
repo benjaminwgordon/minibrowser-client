@@ -1,9 +1,12 @@
+import { BellIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/Auth";
+import Button from "./Button";
+import ExploreTagView from "./ExploreTagView";
 import Post from "./Post";
 import SubscribeToTagWidget from "./SubscribeToTagWidget";
 
@@ -56,7 +59,7 @@ const Feed = () => {
         });
     };
     fetch();
-  }, [searchParams]);
+  }, [jwt, searchParams]);
 
   return (
     <div className="w-full flex flex-column justify-center items-center">

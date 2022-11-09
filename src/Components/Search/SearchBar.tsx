@@ -37,7 +37,7 @@ const SearchBar = () => {
         setSearchTagResult(res[1].slice(0, 3));
       });
     }
-  }, [searchTerm]);
+  }, [searchTerm, jwt]);
 
   // reset the state of the search bar if the user navigates away from current page view
   useEffect(() => {
