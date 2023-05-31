@@ -1,10 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Location } from "react-router-dom";
-import get from "../../API/Get";
 import IUser from "../../API/types/IUser";
 import decodeJWT from "../../utils/decodeJwt";
+import getUserData from "../../API/Auth/GetUserData";
 
-interface IAuthContext {
+export interface IAuthContext {
   jwt: string;
   updateJwt: (newJwt: string) => void;
 
@@ -16,6 +16,8 @@ interface IAuthContext {
 
   previousLocation: Location | undefined;
   updatePreviousLocation: (newPreviousLocation: Location | undefined) => void;
+
+  logout: () => void;
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -27,6 +29,7 @@ export const AuthContext = createContext<IAuthContext>({
   updateUserId: () => {},
   previousLocation: undefined,
   updatePreviousLocation: () => {},
+  logout: () => {},
 });
 
 export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
@@ -35,17 +38,19 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   const [userId, setUserId] = useState<number>(-1);
   const [previousLocation, setPreviousLocation] = useState<Location>();
 
-  useEffect(() => {
-    setInterval(() => {
-      get<{ access_token: string }>(jwt, "/auth/refreshToken")
-        .then((res) => {
-          if (res) {
-            updateJwt(res.access_token);
-          }
-        })
-        .catch((err) => console.log(err));
-    }, 300000);
-  });
+  // TODO: reimplement refresh tokens for JWT
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     authTokenRefresh<{ access_token: string }>(jwt, "/auth/refreshToken")
+  //       .then((res) => {
+  //         if (res) {
+  //           updateJwt(res.access_token);
+  //         }
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }, 300000);
+  // });
 
   //catches unset in-memory jwts and attempts to reset them from session storage
   useEffect(() => {
@@ -69,7 +74,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
 
   useEffect(() => {
     async function fetchUserData(jwt: string) {
-      const userData = await get<IUser>(jwt, "/user/me");
+      const userData = await getUserData<IUser>(jwt, "/user/me");
       if (userData !== undefined) {
         setUserId(userData.id);
         setUsername(userData.username);
@@ -99,6 +104,12 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     setPreviousLocation(newPreviousLocation);
   };
 
+  const logout = () => {
+    setJwt("");
+    setUsername("");
+    setUserId(-1);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -110,6 +121,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
         updateUserId,
         previousLocation,
         updatePreviousLocation,
+        logout,
       }}
     >
       {props.children}

@@ -1,8 +1,6 @@
 // generic fetch GET functionality.  Provide expected return type as ReturnType
 
-import { forEachChild } from "typescript";
-import constants from "./constants";
-import { IAuthContext } from "../Contexts/Auth";
+import constants from "../constants";
 
 export class RequestError {
   statusCode: number;
@@ -18,31 +16,22 @@ export class RequestError {
     }
   }
 }
-
-export default async function postMultipart<BodyType, ReturnType extends {}>(
-  auth: IAuthContext,
-  target: string,
-  body: BodyType
+export default async function authTokenRefresh<ReturnType extends {}>(
+  jwt: string,
+  target: string
 ): Promise<ReturnType> {
-  const multipartBody = new FormData();
-  for (let field in body) {
-    multipartBody.append(field, body[field] as string | Blob);
-  }
-
   const result: ReturnType | RequestError = await fetch(
     constants.baseURL + target,
     {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
-        Authorization: "Bearer " + auth.jwt,
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + jwt,
       },
-      body: multipartBody,
       credentials: "include",
     }
   ).then((response) => response.json());
-
-  // console.log({ result });
 
   if ("statusCode" in result) {
     throw new RequestError(result.statusCode, result.message);

@@ -11,15 +11,15 @@ import { EyeIcon } from "@heroicons/react/20/solid";
 const ExploreTagView = () => {
   const [tags, setTags] = useState<ITag[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     setIsLoading(true);
-    get<ITag[]>(jwt, `/tag/top?take=8`).then((res) => {
+    get<ITag[]>(auth, `/tag/top?take=8`).then((res) => {
       setTags(res);
       setIsLoading(false);
     });
-  }, [jwt]);
+  }, [auth]);
 
   return (
     <div className="mt-8 p-4 w-96 md:w-64 bg-white rounded-lg border border-gray-200 ">

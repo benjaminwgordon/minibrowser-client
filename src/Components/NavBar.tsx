@@ -14,11 +14,11 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 const NavBar = () => {
   // TODO: The NavBar currently controls the new post modal form, but this feels hard to track.  Condiser moving it in the future for clarity
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState<boolean>(false);
-  const { username, updateJwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
-    updateJwt("");
+    auth.logout();
   };
 
   return (
@@ -42,7 +42,7 @@ const NavBar = () => {
             <PlusCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />
           </button>
           <Link
-            to={`/user/${username}`}
+            to={`/user/${auth.username}`}
             className="text-black hover:text-gray-600 select-none"
           >
             <UserCircleIcon className="h-6 w-6 text-black hover:text-gray-600 select-none" />

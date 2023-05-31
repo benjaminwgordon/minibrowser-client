@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PostFeed from "./Components/PostFeed";
 import LoginForm from "./Components/LoginForm";
-import { AuthProvider } from "./Contexts/Auth/index";
+import { AuthProvider } from "./Contexts/Auth";
 import NoRoute from "./Components/NoRoute";
 import Posts from "./Components/Posts";
 import AuthFlow from "./Components/AuthFlow";

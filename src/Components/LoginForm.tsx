@@ -9,20 +9,20 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
 
-  const { jwt, updateJwt, previousLocation } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   let navigate = useNavigate();
 
   // if there is already a stored in-memory jwt, skip login page and nav directly to the pre-redirect target location
   useEffect(() => {
-    if (jwt !== "") {
-      if (previousLocation) {
-        navigate(previousLocation);
+    if (auth.jwt !== "") {
+      if (auth.previousLocation) {
+        navigate(auth.previousLocation);
       } else {
         navigate("/post");
       }
     }
-  }, [jwt, navigate, previousLocation]);
+  }, [auth, navigate]);
 
   interface ILogin {
     email: string;
@@ -36,12 +36,12 @@ const LoginForm = () => {
   const handleSubmit = async () => {
     setErrors([]);
     // const authToken = await login({ email, password });
-    post<ILogin, IAuthToken>(jwt, "/auth/signin", {
+    post<ILogin, IAuthToken>(auth, "/auth/signin", {
       email,
       password,
     })
       .then((result) => {
-        updateJwt(result.access_token);
+        auth.updateJwt(result.access_token);
         navigate("/post/feed");
       })
       .catch((error: RequestError) => {

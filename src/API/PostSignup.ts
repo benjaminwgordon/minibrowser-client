@@ -1,8 +1,7 @@
-// generic fetch GET functionality.  Provide expected return type as ReturnType
+// like a standard post request, but doesn't require any auth token as the
+// user does not exist yet
 
-import { forEachChild } from "typescript";
 import constants from "./constants";
-import { IAuthContext } from "../Contexts/Auth";
 
 export class RequestError {
   statusCode: number;
@@ -19,15 +18,11 @@ export class RequestError {
   }
 }
 
-export default async function postMultipart<BodyType, ReturnType extends {}>(
-  auth: IAuthContext,
+export default async function postSignup<BodyType, ReturnType extends {}>(
   target: string,
   body: BodyType
 ): Promise<ReturnType> {
-  const multipartBody = new FormData();
-  for (let field in body) {
-    multipartBody.append(field, body[field] as string | Blob);
-  }
+  // console.log({ baseURL: constants.baseURL });
 
   const result: ReturnType | RequestError = await fetch(
     constants.baseURL + target,
@@ -35,16 +30,21 @@ export default async function postMultipart<BodyType, ReturnType extends {}>(
       method: "POST",
       mode: "cors",
       headers: {
-        Authorization: "Bearer " + auth.jwt,
+        "Content-Type": "application/json",
       },
-      body: multipartBody,
+      body: JSON.stringify(body),
       credentials: "include",
     }
-  ).then((response) => response.json());
-
-  // console.log({ result });
+  ).then((response) => {
+    const out = response.json();
+    // console.log({ out });
+    return out;
+  });
 
   if ("statusCode" in result) {
+    if (result.statusCode == 401) {
+      console.log("user not authorized");
+    }
     throw new RequestError(result.statusCode, result.message);
   } else {
     return result as ReturnType;

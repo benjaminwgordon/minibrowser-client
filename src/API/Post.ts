@@ -1,5 +1,6 @@
 // generic fetch GET functionality.  Provide expected return type as ReturnType
 
+import { IAuthContext } from "../Contexts/Auth";
 import constants from "./constants";
 
 export class RequestError {
@@ -18,7 +19,7 @@ export class RequestError {
 }
 
 export default async function post<BodyType, ReturnType extends {}>(
-  jwt: string,
+  auth: IAuthContext,
   target: string,
   body: BodyType
 ): Promise<ReturnType> {
@@ -31,7 +32,7 @@ export default async function post<BodyType, ReturnType extends {}>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + jwt,
+        Authorization: "Bearer " + auth.jwt,
       },
       body: JSON.stringify(body),
       credentials: "include",
@@ -43,6 +44,9 @@ export default async function post<BodyType, ReturnType extends {}>(
   });
 
   if ("statusCode" in result) {
+    if (result.statusCode == 401) {
+      console.log("user not authorized");
+    }
     throw new RequestError(result.statusCode, result.message);
   } else {
     return result as ReturnType;

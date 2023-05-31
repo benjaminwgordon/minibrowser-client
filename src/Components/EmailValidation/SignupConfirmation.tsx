@@ -5,7 +5,7 @@ import { AuthContext } from "../../Contexts/Auth";
 
 const SignupConfirmation = () => {
   const [validationCode, setValidationCode] = useState<string>("");
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
@@ -20,7 +20,7 @@ const SignupConfirmation = () => {
   }, []);
 
   const submitConfirmationForm = () => {
-    post(jwt, `/auth/validateEmail`, {
+    post(auth, `/auth/validateEmail`, {
       email: email,
       confirmationCode: validationCode,
     })

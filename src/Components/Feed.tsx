@@ -13,7 +13,7 @@ import SubscribeToTagWidget from "./SubscribeToTagWidget";
 const Feed = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [posts, setPosts] = useState<IPost[]>([]);
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [searchParams] = useSearchParams();
   const [isSubscribedRequest, setIsSubscribedRequest] =
     useState<boolean>(false);
@@ -46,8 +46,16 @@ const Feed = () => {
       setIsSubscribedRequest(false);
     }
 
+    if (request.indexOf("?") == -1) {
+      request += "?";
+    } else {
+      request += "&";
+    }
+
+    request += "cursor=1&take=5";
+
     const fetch = async () => {
-      get<IPost[]>(jwt, request)
+      get<IPost[]>(auth, request)
         .then((res) => {
           setPosts(res);
           // console.log({ res });
@@ -59,7 +67,7 @@ const Feed = () => {
         });
     };
     fetch();
-  }, [jwt, searchParams]);
+  }, [auth, searchParams]);
 
   return (
     <div className="w-full flex flex-column justify-center items-center pb-16">

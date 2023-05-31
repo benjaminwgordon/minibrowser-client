@@ -15,16 +15,16 @@ const SidebarSubscribed = () => {
   const [subscribedTags, setSubscribedTags] = useState<
     (IUserTagSubscription & { tag: ITag })[]
   >([]);
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
-    get<(IUserTagSubscription & { tag: ITag })[]>(jwt, "/tags/subscribed")
+    get<(IUserTagSubscription & { tag: ITag })[]>(auth, "/tags/subscribed")
       .then((res) => {
         setSubscribedTags(res);
         // console.log({ subbedTagsList: res });
       })
       .catch((err) => console.log(err));
-  }, [jwt, isExpanded]);
+  }, [auth, isExpanded]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);

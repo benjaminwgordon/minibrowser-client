@@ -9,7 +9,7 @@ import PostDetailRecipeListView from "./PostDetailRecipeListView";
 
 const PostDetail = () => {
   const navigate = useNavigate();
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const params = useParams();
   const location = useLocation();
 
@@ -21,7 +21,7 @@ const PostDetail = () => {
   useEffect(() => {
     function fetchPost(): void {
       setPost(undefined);
-      get<IPost>(jwt, `/post/${params.postId}`)
+      get<IPost>(auth, `/post/${params.postId}`)
         .then((res) => {
           setPost(res);
           // console.log({ post: res });
@@ -34,7 +34,7 @@ const PostDetail = () => {
   useEffect(() => {
     if (post?.id) {
       get<{ postId: number; tagId: number; tag: ITag }[]>(
-        jwt,
+        auth,
         `/post/${post.id}/tag`
       )
         .then((res) => {

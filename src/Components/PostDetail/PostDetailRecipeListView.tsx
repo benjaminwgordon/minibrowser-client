@@ -14,12 +14,12 @@ const PostDetailRecipeListView = (props: IPostDetailRecipeListViewProps) => {
   const [recipes, setRecipes] = useState<
     { recipeFor: string; RecipeStep: { id: number; instruction: string }[] }[]
   >([]);
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     get<
       { recipeFor: string; RecipeStep: { id: number; instruction: string }[] }[]
-    >(jwt, `/post/${postId}/recipe`)
+    >(auth, `/post/${postId}/recipe`)
       .then((res) => {
         setRecipes(res);
       })

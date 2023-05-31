@@ -11,7 +11,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false);
 
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const location = useLocation();
 
   const [searchUserResult, setSearchUserResult] = useState<IUser[]>([]);
@@ -30,14 +30,14 @@ const SearchBar = () => {
       setSearchTagResult([]);
     } else {
       Promise.all([
-        get<IUser[]>(jwt, `/user/search?username=${searchTerm}`),
-        get<ITag[]>(jwt, `/tag?name=${searchTerm}`),
+        get<IUser[]>(auth, `/user/search?username=${searchTerm}`),
+        get<ITag[]>(auth, `/tag?name=${searchTerm}`),
       ]).then((res) => {
         setSearchUserResult(res[0].slice(0, 3));
         setSearchTagResult(res[1].slice(0, 3));
       });
     }
-  }, [searchTerm, jwt]);
+  }, [searchTerm, auth]);
 
   // reset the state of the search bar if the user navigates away from current page view
   useEffect(() => {

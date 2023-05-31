@@ -19,7 +19,7 @@ interface ISubscribeToTagWidgetProps {
 
 const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
   const { tagId } = props;
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [tag, setTag] = useState<ITag | undefined>(undefined);
   const [isUserSubscibed, setIsUserSubscibed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
     if (!tagId) {
       console.log("undefined tag");
     } else {
-      post<{ tagId: number }, IUserTagSubscription>(jwt, `/tags/subscribed`, {
+      post<{ tagId: number }, IUserTagSubscription>(auth, `/tags/subscribed`, {
         tagId: tagId,
       })
         .then((res) => {
@@ -49,7 +49,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
       console.log("undefined tag");
     } else {
       // console.log({ deleteTagId: tagId });
-      deleteAPI<{ tagId: number }, ITag>(jwt, `/tags/subscribed/${tagId}`, {
+      deleteAPI<{ tagId: number }, ITag>(auth, `/tags/subscribed/${tagId}`, {
         tagId,
       })
         .then((res) => {
@@ -67,7 +67,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
   useEffect(() => {
     setIsLoading(true);
     Promise.all([
-      get<ITag>(jwt, `/tag/${tagId}`)
+      get<ITag>(auth, `/tag/${tagId}`)
         .then((res) => {
           // console.log({ res });
           setTag(res);
@@ -75,7 +75,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
         .catch((err) => {
           console.log({ err });
         }),
-      get<IUserTagSubscription[]>(jwt, "/tags/subscribed")
+      get<IUserTagSubscription[]>(auth, "/tags/subscribed")
         .then((res) => {
           const isUserSubbedToCurrentTag = res.some(
             (tag) => tagId === tag.tagId

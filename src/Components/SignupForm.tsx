@@ -2,6 +2,7 @@ import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import post from "../API/Post";
+import postSignup from "../API/PostSignup";
 
 const SignupForm = () => {
   const [username, setUsername] = useState("");
@@ -22,8 +23,7 @@ const SignupForm = () => {
   }
 
   const handleSubmit = async () => {
-    // const authToken = await login({ email, password });
-    const user = await post<ISignup, IUser>("", "/auth/signup", {
+    const user = await postSignup<ISignup, IUser>("/auth/signup", {
       username,
       email,
       password,

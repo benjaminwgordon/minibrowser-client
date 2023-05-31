@@ -18,12 +18,12 @@ const UserProfile = () => {
   const navigate = useNavigate();
 
   let { username } = useParams();
-  let { jwt } = useContext(AuthContext);
+  let auth = useContext(AuthContext);
 
   useEffect(() => {
     setIsLoading(true);
     setPosts([]);
-    get<IUser & { posts: IPost[] }>(jwt, `/user/${username}/posts`)
+    get<IUser & { posts: IPost[] }>(auth, `/user/${username}/posts`)
       .then((res) => {
         setUser({ username: res.username, id: res.id });
         setPosts(res.posts);
@@ -33,7 +33,7 @@ const UserProfile = () => {
         console.log(error);
         setIsLoading(false);
       });
-  }, [jwt, username]);
+  }, [auth, username]);
 
   return isLoading ? (
     <div className="w-full pt-8 flex flex-col justify-center items-center">

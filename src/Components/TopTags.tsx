@@ -8,10 +8,10 @@ import ITag from "../Types/ITag";
 const TopTags = () => {
   const navigate = useNavigate();
   const [topTags, setTopTags] = useState<ITag[]>([]);
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
-    get<ITag[]>(jwt, "/tag/top?take=20")
+    get<ITag[]>(auth, "/tag/top?take=20")
       .then((res) => {
         setTopTags(res);
       })

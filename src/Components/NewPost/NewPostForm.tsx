@@ -85,7 +85,7 @@ const NewPostForm = (props: INewPostFormProps) => {
   const [tags, setTags] = useState<ITag[]>([]);
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
 
-  const { jwt, username } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -114,12 +114,12 @@ const NewPostForm = (props: INewPostFormProps) => {
       image,
     };
 
-    postMultipart<INewPost, IPost>(jwt, "/post", body)
+    postMultipart<INewPost, IPost>(auth, "/post", body)
       .then((result) => {
         // if user added tags, upload them
         if (tags.length !== 0) {
           post<{ post: IPost; tags: ITag[] }, IPost & ITag[]>(
-            jwt,
+            auth,
             `/post/${result.id}/tag`,
             { post: result, tags }
           )
@@ -132,7 +132,7 @@ const NewPostForm = (props: INewPostFormProps) => {
         }
         // if user added recipes, upload them
         if (recipes.length !== 0) {
-          post<{ recipes: IRecipe[] }, any>(jwt, `/post/${result.id}/recipe`, {
+          post<{ recipes: IRecipe[] }, any>(auth, `/post/${result.id}/recipe`, {
             recipes: cleanedRecipes,
           })
             .then((res) => {
@@ -146,7 +146,7 @@ const NewPostForm = (props: INewPostFormProps) => {
         // cleanup and nav to view new post
         setIsUploading(false);
         props.close();
-        navigate(`/user/${username}`);
+        navigate(`/user/${auth.username}`);
       })
       .catch((error) => {
         console.log({ error });

@@ -33,7 +33,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
   const [searchResult, setSearchResult] = useState<ITag[]>([]);
   const [isShowInstructions, setIsShowInstructions] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { jwt } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   const { tags, setTags } = props;
 
@@ -48,7 +48,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
   const submitNewTag = () => {
     setIsLoading(true);
     const newTagName = searchTerm;
-    post<{ name: string }, ITag>(jwt, "/tag", { name: newTagName })
+    post<{ name: string }, ITag>(auth, "/tag", { name: newTagName })
       .then((res) => {
         addTag(res);
         setSearchTerm("");
@@ -64,7 +64,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
     if (searchTerm !== "") {
       //run a search against all available tags
       setIsLoading(true);
-      get<ITag[]>(jwt, `/tag?name=${searchTerm}`)
+      get<ITag[]>(auth, `/tag?name=${searchTerm}`)
         .then((res) => {
           setSearchResult(res);
           setIsLoading(false);
