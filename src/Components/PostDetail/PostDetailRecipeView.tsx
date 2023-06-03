@@ -36,7 +36,10 @@ const PostDetailRecipeView = (props: IPostDetailRecipeView) => {
             <ol className="ml-1">
               {isExpandSteps &&
                 RecipeStep.map((recipeStep, index) => (
-                  <li className="text-sm flex flex-row select-text mb-1">
+                  <li
+                    className="text-sm flex flex-row select-text mb-1"
+                    key={"recipeStep" + index}
+                  >
                     <p className="mr-2">{index + 1 + "."}</p>
                     <p>{recipeStep.instruction}</p>
                   </li>

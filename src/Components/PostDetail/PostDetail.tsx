@@ -57,22 +57,22 @@ const PostDetail = () => {
       }}
     >
       <div
-        className="flex flex-col justify-start h-3/4 w-3/4 max-w-3/4 max-h-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
+        className="flex flex-col justify-start w-3/4 max-w-3/4 max-h-3/4 rounded-lg bg-white m-5 border-4 border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-center items-center border-b border-gray-200">
           <h3 className="flex items-center text-lg p-2">{post.title}</h3>
         </div>
-        <div className="flex flex-row justify-stretch h-full">
-          <div className="flex justify-center items-center bg-black ">
+        <div className="flex flex-col lg:flex-row justify-stretch">
+          <div className="flex justify-center h-full items-center bg-black w-full lg:w-2/3">
             <img
               src={post.content}
               alt="user uploaded content"
               loading="lazy"
-              className="h-0 min-h-full object-contain"
+              className="min-h-full object-contain"
             />
           </div>
-          <div className="flex flex-col justify-start items-left w-1/3 border-l border-gray-200">
+          <div className="flex flex-col justify-start items-left w-full lg:w-1/3 border-l border-gray-200">
             <div className="p-2 pb-4 border-b border-gray-200">
               <button
                 onClick={() => navigate(`/user/${post.author.username}`)}

@@ -3,6 +3,7 @@ import { Location } from "react-router-dom";
 import IUser from "../../API/types/IUser";
 import decodeJWT from "../../utils/decodeJwt";
 import getUserData from "../../API/Auth/GetUserData";
+import authTokenRefresh from "../../API/Auth/AuthTokenRefresh";
 
 export interface IAuthContext {
   jwt: string;
@@ -40,17 +41,27 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
 
   // TODO: reimplement refresh tokens for JWT
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     authTokenRefresh<{ access_token: string }>(jwt, "/auth/refreshToken")
-  //       .then((res) => {
-  //         if (res) {
-  //           updateJwt(res.access_token);
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }, 300000);
-  // });
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (jwt) {
+        // only try to refresh auth token is user is signed in
+        console.log("Attempting to refresh the auth token");
+        authTokenRefresh<{ access_token: string }>(jwt, "/auth/refreshToken")
+          .then((res) => {
+            console.log({ res });
+            if (res) {
+              console.log("Successfully fetched new auth token");
+              updateJwt(res.access_token);
+            }
+            // log user out
+          })
+          .catch((err) =>
+            console.log("Failed to fetch new auth token: ", { err })
+          );
+      }
+      return () => clearInterval(interval);
+    }, 300000);
+  });
 
   //catches unset in-memory jwts and attempts to reset them from session storage
   useEffect(() => {
