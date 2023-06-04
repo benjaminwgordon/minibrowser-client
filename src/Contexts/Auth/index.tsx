@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Location } from "react-router-dom";
 import IUser from "../../API/types/IUser";
-import decodeJWT from "../../utils/decodeJwt";
 import getUserData from "../../API/Auth/GetUserData";
 import authTokenRefresh from "../../API/Auth/AuthTokenRefresh";
+import path from "path";
 
 export interface IAuthContext {
   jwt: string;
@@ -39,49 +39,51 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   const [userId, setUserId] = useState<number>(-1);
   const [previousLocation, setPreviousLocation] = useState<Location>();
 
-  // TODO: reimplement refresh tokens for JWT
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (jwt) {
+    if (jwt) {
+      const interval = setInterval(() => {
         // only try to refresh auth token is user is signed in
         console.log("Attempting to refresh the auth token");
         authTokenRefresh<{ access_token: string }>(jwt, "/auth/refreshToken")
           .then((res) => {
             console.log({ res });
-            if (res) {
+            if (res && res.access_token != "") {
               console.log("Successfully fetched new auth token");
               updateJwt(res.access_token);
+            } else {
+              updateJwt("");
+              setUsername("");
+              setUserId(-1);
+              // redirect to login screen
             }
-            // log user out
           })
           .catch((err) =>
             console.log("Failed to fetch new auth token: ", { err })
           );
-      }
+      }, 10000);
       return () => clearInterval(interval);
-    }, 300000);
-  });
-
-  //catches unset in-memory jwts and attempts to reset them from session storage
-  useEffect(() => {
-    if (jwt === "") {
-      const storedToken = localStorage.getItem("jwt");
-      if (storedToken) {
-        const decodedToken = decodeJWT(storedToken);
-        const date = new Date();
-        const currentTime = Math.floor(date.getTime() / 1000);
-        if (currentTime > decodedToken.exp) {
-          // invalidate stored token
-          localStorage.removeItem("jwt");
-          updateJwt("");
-        } else {
-          // use existing token
-          updateJwt(storedToken);
-        }
-      }
     }
-  }, [jwt]);
+  }, [userId]);
+
+  // //catches unset in-memory jwts and attempts to reset them from session storage
+  // useEffect(() => {
+  //   if (jwt === "") {
+  //     const storedToken = localStorage.getItem("jwt");
+  //     if (storedToken) {
+  //       const decodedToken = decodeJWT(storedToken);
+  //       const date = new Date();
+  //       const currentTime = Math.floor(date.getTime() / 1000);
+  //       if (currentTime > decodedToken.exp) {
+  //         // invalidate stored token
+  //         localStorage.removeItem("jwt");
+  //         updateJwt("");
+  //       } else {
+  //         // use existing token
+  //         updateJwt(storedToken);
+  //       }
+  //     }
+  //   }
+  // }, [jwt]);
 
   useEffect(() => {
     async function fetchUserData(jwt: string) {
@@ -97,7 +99,6 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
   }, [jwt]);
 
   const updateJwt = (newJwt: string) => {
-    localStorage.setItem("jwt", newJwt);
     setJwt(newJwt);
   };
 

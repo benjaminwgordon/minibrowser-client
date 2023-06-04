@@ -17,7 +17,6 @@ const NavBar = () => {
   const auth = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
     auth.logout();
   };
 

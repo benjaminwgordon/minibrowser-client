@@ -39,7 +39,7 @@ const PostFeedAll = () => {
       triggerPostUpdate();
     } else {
     }
-  });
+  }, []);
 
   return (
     <div>
