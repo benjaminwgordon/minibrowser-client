@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import get from "../../API/Get";
 import IPost from "../../API/types/IPost";
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../UserSession";
 
 interface IFeedProviderProps {
   children: any;
@@ -29,7 +29,7 @@ export const FeedProvider = (props: IFeedProviderProps) => {
       take = 1;
     }
     console.log(`/post?cursor=${cursor}&take=${take}`);
-    get<IPost[]>(auth, `/post?cursor=${cursor}&take=${take}`)
+    get<IPost[]>(`/post?cursor=${cursor}&take=${take}`)
       .then((res) => {
         //append new posts
         console.log({ res });

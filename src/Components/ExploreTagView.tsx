@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ITag from "../Types/ITag";
 import { useContext } from "react";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 import get from "../API/Get";
 import { PropagateLoader } from "react-spinners";
 import TopTags from "./TopTags";
@@ -15,7 +15,7 @@ const ExploreTagView = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    get<ITag[]>(auth, `/tag/top?take=8`).then((res) => {
+    get<ITag[]>(`/tag/top?take=8`).then((res) => {
       setTags(res);
       setIsLoading(false);
     });

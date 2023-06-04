@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import get from "../../API/Get";
-import { AuthContext } from "../../Contexts/Auth";
+import { AuthContext } from "../../Contexts/UserSession";
 import { IRecipe } from "../NewPost/NewPostRecipeForm";
 import PostDetailRecipeView from "./PostDetailRecipeView";
 
@@ -19,7 +19,7 @@ const PostDetailRecipeListView = (props: IPostDetailRecipeListViewProps) => {
   useEffect(() => {
     get<
       { recipeFor: string; RecipeStep: { id: number; instruction: string }[] }[]
-    >(auth, `/post/${postId}/recipe`)
+    >(`/post/${postId}/recipe`)
       .then((res) => {
         setRecipes(res);
       })

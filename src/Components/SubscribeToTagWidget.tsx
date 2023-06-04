@@ -10,7 +10,7 @@ import deleteAPI from "../API/Delete";
 import get from "../API/Get";
 import post from "../API/Post";
 import IUserTagSubscription from "../API/types/userTagSub";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 import ITag from "../Types/ITag";
 
 interface ISubscribeToTagWidgetProps {
@@ -28,7 +28,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
     if (!tagId) {
       console.log("undefined tag");
     } else {
-      post<{ tagId: number }, IUserTagSubscription>(auth, `/tags/subscribed`, {
+      post<{ tagId: number }, IUserTagSubscription>(`/tags/subscribed`, {
         tagId: tagId,
       })
         .then((res) => {
@@ -49,7 +49,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
       console.log("undefined tag");
     } else {
       // console.log({ deleteTagId: tagId });
-      deleteAPI<{ tagId: number }, ITag>(auth, `/tags/subscribed/${tagId}`, {
+      deleteAPI<{ tagId: number }, ITag>(`/tags/subscribed/${tagId}`, {
         tagId,
       })
         .then((res) => {
@@ -67,7 +67,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
   useEffect(() => {
     setIsLoading(true);
     Promise.all([
-      get<ITag>(auth, `/tag/${tagId}`)
+      get<ITag>(`/tag/${tagId}`)
         .then((res) => {
           // console.log({ res });
           setTag(res);
@@ -75,7 +75,7 @@ const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
         .catch((err) => {
           console.log({ err });
         }),
-      get<IUserTagSubscription[]>(auth, "/tags/subscribed")
+      get<IUserTagSubscription[]>("/tags/subscribed")
         .then((res) => {
           const isUserSubbedToCurrentTag = res.some(
             (tag) => tagId === tag.tagId

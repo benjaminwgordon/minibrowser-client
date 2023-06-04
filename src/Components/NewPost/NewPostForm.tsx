@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import INewPost from "../../API/types/INewPost";
 import IPost from "../../API/types/IPost";
-import { AuthContext } from "../../Contexts/Auth";
+import { AuthContext } from "../../Contexts/UserSession";
 import ImageUpload from "./ImageUpload";
 import NewPostFormMetadata from "./NewPostFormMetadata";
 import { useNavigate } from "react-router-dom";
@@ -114,12 +114,11 @@ const NewPostForm = (props: INewPostFormProps) => {
       image,
     };
 
-    postMultipart<INewPost, IPost>(auth, "/post", body)
+    postMultipart<INewPost, IPost>("/post", body)
       .then((result) => {
         // if user added tags, upload them
         if (tags.length !== 0) {
           post<{ post: IPost; tags: ITag[] }, IPost & ITag[]>(
-            auth,
             `/post/${result.id}/tag`,
             { post: result, tags }
           )
@@ -132,7 +131,7 @@ const NewPostForm = (props: INewPostFormProps) => {
         }
         // if user added recipes, upload them
         if (recipes.length !== 0) {
-          post<{ recipes: IRecipe[] }, any>(auth, `/post/${result.id}/recipe`, {
+          post<{ recipes: IRecipe[] }, any>(`/post/${result.id}/recipe`, {
             recipes: cleanedRecipes,
           })
             .then((res) => {

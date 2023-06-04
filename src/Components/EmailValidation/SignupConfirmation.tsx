@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import post from "../../API/Post";
-import { AuthContext } from "../../Contexts/Auth";
+import { AuthContext } from "../../Contexts/UserSession";
 
 const SignupConfirmation = () => {
   const [validationCode, setValidationCode] = useState<string>("");
@@ -20,7 +20,7 @@ const SignupConfirmation = () => {
   }, []);
 
   const submitConfirmationForm = () => {
-    post(auth, `/auth/validateEmail`, {
+    post(`/auth/validateEmail`, {
       email: email,
       confirmationCode: validationCode,
     })

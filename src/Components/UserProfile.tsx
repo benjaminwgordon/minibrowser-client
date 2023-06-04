@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 
 interface IUser {
   username: string;
@@ -23,7 +23,7 @@ const UserProfile = () => {
   useEffect(() => {
     setIsLoading(true);
     setPosts([]);
-    get<IUser & { posts: IPost[] }>(auth, `/user/${username}/posts`)
+    get<IUser & { posts: IPost[] }>(`/user/${username}/posts`)
       .then((res) => {
         setUser({ username: res.username, id: res.id });
         setPosts(res.posts);

@@ -1,6 +1,5 @@
 // generic fetch GET functionality.  Provide expected return type as ReturnType
 
-import { IAuthContext } from "../Contexts/Auth";
 import constants from "./constants";
 
 export class RequestError {
@@ -18,7 +17,6 @@ export class RequestError {
   }
 }
 export default async function get<ReturnType extends {}>(
-  auth: IAuthContext,
   target: string
 ): Promise<ReturnType> {
   const result: ReturnType | RequestError = await fetch(
@@ -28,7 +26,6 @@ export default async function get<ReturnType extends {}>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + auth.jwt,
       },
       credentials: "include",
     }

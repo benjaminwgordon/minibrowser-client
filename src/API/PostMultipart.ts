@@ -1,8 +1,6 @@
 // generic fetch GET functionality.  Provide expected return type as ReturnType
 
-import { forEachChild } from "typescript";
 import constants from "./constants";
-import { IAuthContext } from "../Contexts/Auth";
 
 export class RequestError {
   statusCode: number;
@@ -20,7 +18,6 @@ export class RequestError {
 }
 
 export default async function postMultipart<BodyType, ReturnType extends {}>(
-  auth: IAuthContext,
   target: string,
   body: BodyType
 ): Promise<ReturnType> {
@@ -34,9 +31,7 @@ export default async function postMultipart<BodyType, ReturnType extends {}>(
     {
       method: "POST",
       mode: "cors",
-      headers: {
-        Authorization: "Bearer " + auth.jwt,
-      },
+      headers: {},
       body: multipartBody,
       credentials: "include",
     }

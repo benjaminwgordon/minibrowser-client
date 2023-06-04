@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import IPost from "../../API/types/IPost";
 import get from "../../API/Get";
-import { AuthContext } from "../../Contexts/Auth";
+import { AuthContext } from "../../Contexts/UserSession";
 import ITag from "../../Types/ITag";
 import PostDetailRecipeListView from "./PostDetailRecipeListView";
 
@@ -21,7 +21,7 @@ const PostDetail = () => {
   useEffect(() => {
     function fetchPost(): void {
       setPost(undefined);
-      get<IPost>(auth, `/post/${params.postId}`)
+      get<IPost>(`/post/${params.postId}`)
         .then((res) => {
           setPost(res);
           // console.log({ post: res });
@@ -34,7 +34,6 @@ const PostDetail = () => {
   useEffect(() => {
     if (post?.id) {
       get<{ postId: number; tagId: number; tag: ITag }[]>(
-        auth,
         `/post/${post.id}/tag`
       )
         .then((res) => {

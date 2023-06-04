@@ -2,7 +2,7 @@ import { TagIcon } from "@heroicons/react/24/outline";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import get from "../API/Get";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 import ITag from "../Types/ITag";
 
 const TopTags = () => {
@@ -11,7 +11,7 @@ const TopTags = () => {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    get<ITag[]>(auth, "/tag/top?take=20")
+    get<ITag[]>("/tag/top?take=20")
       .then((res) => {
         setTopTags(res);
       })

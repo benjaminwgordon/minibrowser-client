@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import get from "../../API/Get";
-import { AuthContext } from "../../Contexts/Auth";
+import { AuthContext } from "../../Contexts/UserSession";
 import { useLocation, useNavigate } from "react-router-dom";
 import ITag from "../../Types/ITag";
 import IUser from "../../Types/IUser";
@@ -30,8 +30,8 @@ const SearchBar = () => {
       setSearchTagResult([]);
     } else {
       Promise.all([
-        get<IUser[]>(auth, `/user/search?username=${searchTerm}`),
-        get<ITag[]>(auth, `/tag?name=${searchTerm}`),
+        get<IUser[]>(`/user/search?username=${searchTerm}`),
+        get<ITag[]>(`/tag?name=${searchTerm}`),
       ]).then((res) => {
         setSearchUserResult(res[0].slice(0, 3));
         setSearchTagResult(res[1].slice(0, 3));

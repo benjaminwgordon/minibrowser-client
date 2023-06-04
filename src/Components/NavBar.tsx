@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/20/solid";
 import NewPostForm from "./NewPost/NewPostForm";
 import Modal from "./Modal";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
 const NavBar = () => {

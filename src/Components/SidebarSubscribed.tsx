@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import get from "../API/Get";
 import IUserTagSubscription from "../API/types/userTagSub";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 import ITag from "../Types/ITag";
 
 const SidebarSubscribed = () => {
@@ -18,7 +18,7 @@ const SidebarSubscribed = () => {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    get<(IUserTagSubscription & { tag: ITag })[]>(auth, "/tags/subscribed")
+    get<(IUserTagSubscription & { tag: ITag })[]>("/tags/subscribed")
       .then((res) => {
         setSubscribedTags(res);
         // console.log({ subbedTagsList: res });

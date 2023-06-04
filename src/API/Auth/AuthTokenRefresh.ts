@@ -17,7 +17,6 @@ export class RequestError {
   }
 }
 export default async function authTokenRefresh<ReturnType extends {}>(
-  jwt: string,
   target: string
 ): Promise<ReturnType> {
   const result: ReturnType | RequestError = await fetch(
@@ -27,7 +26,6 @@ export default async function authTokenRefresh<ReturnType extends {}>(
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + jwt,
       },
       credentials: "include",
     }

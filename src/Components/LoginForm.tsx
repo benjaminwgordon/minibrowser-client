@@ -1,8 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import post, { RequestError } from "../API/Post";
-import { AuthContext } from "../Contexts/Auth";
+import { AuthContext } from "../Contexts/UserSession";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import get from "../API/Get";
+import IUser from "../Types/IUser";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +17,19 @@ const LoginForm = () => {
 
   // if there is already a stored in-memory jwt, skip login page and nav directly to the pre-redirect target location
   useEffect(() => {
-    if (auth.jwt !== "") {
-      if (auth.previousLocation) {
+    console.log(
+      "initial auth page load, trying to log in from existing httpOnlyCookie"
+    );
+    auth.fetchUserData();
+    if (auth.userId !== -1) {
+      console.log("prev: ", auth.previousLocation);
+      if (
+        auth.previousLocation !== undefined &&
+        auth.previousLocation.state != null
+      ) {
         navigate(auth.previousLocation);
       } else {
-        navigate("/post");
+        navigate("/post/feed");
       }
     }
   }, [auth, navigate]);
@@ -35,17 +45,17 @@ const LoginForm = () => {
 
   const handleSubmit = async () => {
     setErrors([]);
-    // const authToken = await login({ email, password });
-    post<ILogin, IAuthToken>(auth, "/auth/signin", {
+    post<ILogin, IAuthToken>("/auth/signin", {
       email,
       password,
     })
       .then((result) => {
-        auth.updateJwt(result.access_token);
+        console.log({ result });
+        auth.fetchUserData();
         navigate("/post/feed");
       })
       .catch((error: RequestError) => {
-        // console.log(error);
+        console.log(error);
         setErrors(error.message);
       });
   };

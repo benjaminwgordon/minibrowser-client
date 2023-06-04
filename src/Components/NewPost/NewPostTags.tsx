@@ -18,7 +18,7 @@ import {
 import { PropagateLoader } from "react-spinners";
 import get from "../../API/Get";
 import post from "../../API/Post";
-import { AuthContext } from "../../Contexts/Auth";
+import { AuthContext } from "../../Contexts/UserSession";
 import ITag from "../../Types/ITag";
 
 interface INewPostTagsProps {
@@ -48,7 +48,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
   const submitNewTag = () => {
     setIsLoading(true);
     const newTagName = searchTerm;
-    post<{ name: string }, ITag>(auth, "/tag", { name: newTagName })
+    post<{ name: string }, ITag>("/tag", { name: newTagName })
       .then((res) => {
         addTag(res);
         setSearchTerm("");
@@ -64,7 +64,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
     if (searchTerm !== "") {
       //run a search against all available tags
       setIsLoading(true);
-      get<ITag[]>(auth, `/tag?name=${searchTerm}`)
+      get<ITag[]>(`/tag?name=${searchTerm}`)
         .then((res) => {
           setSearchResult(res);
           setIsLoading(false);
