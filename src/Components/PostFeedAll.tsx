@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { FeedContext } from "../Contexts/Feed";
-import Post from "./Post";
+import Post from "./FeedPost/Post";
 
 const PostFeedAll = () => {
   const { posts, triggerPostUpdate } = useContext(FeedContext);

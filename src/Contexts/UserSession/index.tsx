@@ -39,7 +39,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     const interval = setInterval(() => {
       authTokenRefresh<{ access_token: string }>("/auth/refreshToken")
         .then((res) => {
-          if (res && res.access_token != "") {
+          if (res && res.access_token !== "") {
           } else {
             setUsername("");
             setUserId(-1);

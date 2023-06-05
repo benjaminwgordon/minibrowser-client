@@ -7,7 +7,7 @@ import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/UserSession";
 import Button from "./Button";
 import ExploreTagView from "./ExploreTagView";
-import Post from "./Post";
+import Post from "./FeedPost/Post";
 import SubscribeToTagWidget from "./SubscribeToTagWidget";
 
 const Feed = () => {
