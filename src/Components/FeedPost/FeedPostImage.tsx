@@ -11,10 +11,15 @@ const FeedPostImage = (props: FeedPostImageProps) => {
 
   return (
     <div
-      className="w-full bg-black flex items-center justify-center"
+      className="w-full flex items-center justify-center rounded-sm border border-white"
       onClick={() => navigate(`post/${props.id}`)}
     >
-      <img src={props.content} alt="user uploaded content" loading="lazy" />
+      <img
+        src={props.content}
+        alt="user uploaded content"
+        loading="lazy"
+        className="rounded"
+      />
     </div>
   );
 };

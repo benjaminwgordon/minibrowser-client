@@ -30,10 +30,11 @@ const PostDetailRecipeListView = (props: IPostDetailRecipeListViewProps) => {
     if (recipes.length === 0) {
       return <p>This post has no recipes</p>;
     } else {
-      return recipes.map((recipe) => (
+      return recipes.map((recipe, index) => (
         <PostDetailRecipeView
           recipeFor={recipe.recipeFor}
           RecipeStep={recipe.RecipeStep}
+          key={"recipe-" + index}
         />
       ));
     }

@@ -1,12 +1,9 @@
-import { BellIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 import get from "../API/Get";
 import IPost from "../API/types/IPost";
 import { AuthContext } from "../Contexts/UserSession";
-import Button from "./Button";
-import ExploreTagView from "./ExploreTagView";
 import Post from "./FeedPost/Post";
 import SubscribeToTagWidget from "./SubscribeToTagWidget";
 
