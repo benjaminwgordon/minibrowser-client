@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import INewPost from "../../API/types/INewPost";
 import IPost from "../../API/types/IPost";
 import { AuthContext } from "../../Contexts/UserSession";
@@ -10,7 +10,7 @@ import NewPostTags from "./NewPostTags";
 import ITag from "../../Types/ITag";
 import post from "../../API/Post";
 import { PropagateLoader } from "react-spinners";
-import NewPostRecipe, { IRecipeStep } from "./NewPostRecipeForm";
+import NewPostRecipe from "./NewPostRecipeForm";
 import { IRecipe } from "./NewPostRecipeForm";
 
 interface INewPostFormProps {
@@ -78,7 +78,7 @@ const NewPostForm = (props: INewPostFormProps) => {
     }
   };
 
-  const [image, setImage] = useState(undefined);
+  const [image, setImage] = useState<File | undefined>(undefined);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -131,10 +131,10 @@ const NewPostForm = (props: INewPostFormProps) => {
         }
         // if user added recipes, upload them
         if (recipes.length !== 0) {
-          post<{ recipes: IRecipe[] }, any>(`/post/${result.id}/recipe`, {
+          post<{ recipes: IRecipe[] }, object>(`/post/${result.id}/recipe`, {
             recipes: cleanedRecipes,
           })
-            .then((res) => {
+            .then(() => {
               // console.log(res);
             })
             .catch((err) => {

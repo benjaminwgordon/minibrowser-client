@@ -1,15 +1,13 @@
 import { TagIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import IPost from "../../API/types/IPost";
 import get from "../../API/Get";
-import { AuthContext } from "../../Contexts/UserSession";
 import ITag from "../../Types/ITag";
 import PostDetailRecipeListView from "./PostDetailRecipeListView";
 
 const PostDetail = () => {
   const navigate = useNavigate();
-  const auth = useContext(AuthContext);
   const params = useParams();
   const location = useLocation();
 

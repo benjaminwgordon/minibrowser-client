@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import post, { RequestError } from "../API/Post";
 import { AuthContext } from "../Contexts/UserSession";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import get from "../API/Get";
-import IUser from "../Types/IUser";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +11,7 @@ const LoginForm = () => {
 
   const auth = useContext(AuthContext);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   // if there is already a stored in-memory jwt, skip login page and nav directly to the pre-redirect target location
   useEffect(() => {
@@ -75,12 +73,12 @@ const LoginForm = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{" "}
-            <a
+            <button
               className="font-medium text-indigo-600 hover:text-indigo-500"
               onClick={() => navigate("signup")}
             >
               create a new account
-            </a>
+            </button>
           </p>
         </div>
         <form className="mt-8">

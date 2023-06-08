@@ -2,8 +2,8 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 import React, { Dispatch, SetStateAction } from "react";
 
 interface IImageUploadProps {
-  image: any;
-  setImage: Dispatch<SetStateAction<any>>;
+  image: File | undefined;
+  setImage: Dispatch<SetStateAction<File | undefined>>;
   nextStep: () => void;
   previousStep: () => void;
 }
@@ -13,6 +13,7 @@ const ImageUpload = (props: IImageUploadProps) => {
     if (event.target && event.target.files && event.target.files[0]) {
       props.setImage(event.target.files[0]);
       props.nextStep();
+      FileList;
     }
   };
 

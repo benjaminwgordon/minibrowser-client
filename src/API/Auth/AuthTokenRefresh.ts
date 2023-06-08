@@ -16,7 +16,7 @@ export class RequestError {
     }
   }
 }
-export default async function authTokenRefresh<ReturnType extends {}>(
+export default async function authTokenRefresh<ReturnType extends object>(
   target: string
 ): Promise<ReturnType> {
   const result: ReturnType | RequestError = await fetch(

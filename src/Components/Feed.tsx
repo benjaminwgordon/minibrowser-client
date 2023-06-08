@@ -58,7 +58,7 @@ const Feed = () => {
           // console.log({ res });
           setIsLoading(false);
         })
-        .catch((error) => {
+        .catch(() => {
           // console.log(error);
           setIsLoading(false);
         });

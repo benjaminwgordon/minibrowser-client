@@ -1,12 +1,10 @@
 import {
   BellIcon,
   MagnifyingGlassIcon,
-  RectangleGroupIcon,
   Square3Stack3DIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { Link, Location, useLocation } from "react-router-dom";
-import ITag from "../Types/ITag";
 import SidebarSubscribed from "./SidebarSubscribed";
 
 enum NavLocation {
@@ -21,11 +19,11 @@ const updateNavLocation = (location: Location): NavLocation | null => {
     .split("/")
     .slice(1)
     .join("/");
-  if (path == "tag") {
+  if (path === "tag") {
     return NavLocation.Explore;
-  } else if (path == "post/feed?subscribedTags=true") {
+  } else if (path === "post/feed?subscribedTags=true") {
     return NavLocation.Subscribed;
-  } else if (path == "post/feed") {
+  } else if (path === "post/feed") {
     return NavLocation.Home;
   } else {
     return null;

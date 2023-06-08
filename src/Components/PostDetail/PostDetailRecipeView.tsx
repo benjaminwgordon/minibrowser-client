@@ -1,7 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { IRecipe } from "../NewPost/NewPostRecipeForm";
-import NewRecipeStep from "../NewPost/NewRecipeStep";
 
 interface IPostDetailRecipeView {
   recipeFor: string;
@@ -11,8 +9,6 @@ interface IPostDetailRecipeView {
 const PostDetailRecipeView = (props: IPostDetailRecipeView) => {
   const { recipeFor, RecipeStep } = props;
   const [isExpandSteps, setIsExpandSteps] = useState<boolean>(false);
-
-  // console.log(RecipeStep);
 
   return (
     <div className="w-full justify-start items-start mt-2 select-none border p-1">

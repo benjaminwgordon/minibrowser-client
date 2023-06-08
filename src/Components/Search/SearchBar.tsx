@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import get from "../../API/Get";
 import { AuthContext } from "../../Contexts/UserSession";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ITag from "../../Types/ITag";
 import IUser from "../../Types/IUser";
 import SearchUserResults from "./SearchUserResults";

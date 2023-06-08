@@ -17,7 +17,7 @@ export class RequestError {
   }
 }
 
-export default async function deleteAPI<BodyType, ReturnType extends {}>(
+export default async function deleteAPI<BodyType, ReturnType extends object>(
   target: string,
   body: BodyType
 ): Promise<ReturnType> {

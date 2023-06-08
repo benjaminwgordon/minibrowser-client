@@ -1,7 +1,3 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import PostDetail from "../PostDetail/PostDetail";
 import FeedPostHeader from "./FeedPostHeader";
 import FeedPostBody from "./FeedPostBody";
 import FeedPostImage from "./FeedPostImage";
@@ -16,7 +12,7 @@ interface IPostProps {
 }
 
 const Post = (props: IPostProps) => {
-  const { id, title, content, authorId, author, description } = props;
+  const { id, title, content, author, description } = props;
 
   return (
     <div className="flex flex-col justify-center w-96 rounded-md pb-8 border-b border-gray">

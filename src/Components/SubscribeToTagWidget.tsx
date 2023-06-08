@@ -4,13 +4,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { BellIcon as BellFullIcon } from "@heroicons/react/24/solid";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RingLoader } from "react-spinners";
 import deleteAPI from "../API/Delete";
 import get from "../API/Get";
 import post from "../API/Post";
 import IUserTagSubscription from "../API/types/userTagSub";
-import { AuthContext } from "../Contexts/UserSession";
 import ITag from "../Types/ITag";
 
 interface ISubscribeToTagWidgetProps {
@@ -19,7 +18,6 @@ interface ISubscribeToTagWidgetProps {
 
 const SubscribeToTagWidget = (props: ISubscribeToTagWidgetProps) => {
   const { tagId } = props;
-  const auth = useContext(AuthContext);
   const [tag, setTag] = useState<ITag | undefined>(undefined);
   const [isUserSubscibed, setIsUserSubscibed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);

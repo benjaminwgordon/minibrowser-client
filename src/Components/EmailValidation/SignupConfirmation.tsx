@@ -22,7 +22,7 @@ const SignupConfirmation = () => {
       email: email,
       confirmationCode: validationCode,
     })
-      .then((res) => {
+      .then(() => {
         // console.log({ emailconfirm: res });
         navigate("/auth/emailConfirmationSucess");
       })

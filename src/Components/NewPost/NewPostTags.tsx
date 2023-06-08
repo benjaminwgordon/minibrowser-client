@@ -2,23 +2,14 @@ import {
   ArrowLeftIcon,
   CheckIcon,
   MinusIcon,
-  PlusIcon,
   QuestionMarkCircleIcon,
   TagIcon,
-  XCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  useState,
-  useEffect,
-  useContext,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { PropagateLoader } from "react-spinners";
 import get from "../../API/Get";
 import post from "../../API/Post";
-import { AuthContext } from "../../Contexts/UserSession";
 import ITag from "../../Types/ITag";
 
 interface INewPostTagsProps {
@@ -33,7 +24,6 @@ const NewPostTags = (props: INewPostTagsProps) => {
   const [searchResult, setSearchResult] = useState<ITag[]>([]);
   const [isShowInstructions, setIsShowInstructions] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const auth = useContext(AuthContext);
 
   const { tags, setTags } = props;
 
@@ -42,7 +32,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
   };
 
   const removeTag = (removedTag: ITag): void => {
-    setTags(tags.filter((element) => element.id != removedTag.id));
+    setTags(tags.filter((element) => element.id !== removedTag.id));
   };
 
   const submitNewTag = () => {
@@ -151,7 +141,7 @@ const NewPostTags = (props: INewPostTagsProps) => {
               className="p-1 flex flex-row justify-between items-center"
             >
               <span>{tag.name}</span>
-              {tags.some((element) => element.id == tag.id) ? (
+              {tags.some((element) => element.id === tag.id) ? (
                 <button>
                   <MinusIcon
                     className="h-6 w-6 text-red-400"

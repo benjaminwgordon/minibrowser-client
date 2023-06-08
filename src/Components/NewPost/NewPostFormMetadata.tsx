@@ -1,11 +1,10 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { BackspaceIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../../Contexts/UserSession";
 
 interface INewPostFormMetadataProps {
-  image: any;
+  image: File | undefined;
   description: string;
   setDescription: (description: string) => void;
   title: string;
@@ -75,11 +74,13 @@ const NewPostFormMetadata = (props: INewPostFormMetadataProps) => {
             </div>
           </div>
           <div className="w-full bg-black">
-            <img
-              src={URL.createObjectURL(image)}
-              alt="user upload"
-              className="max-w-full max-h-full h-full w-full object-contain"
-            />
+            {
+              <img
+                src={image ? URL.createObjectURL(image) : "undefined"}
+                alt="user upload"
+                className="max-w-full max-h-full h-full w-full object-contain"
+              />
+            }
           </div>
           <div className="w-full px-4 py-1 border-t">
             <label htmlFor="descriptionInput" className="sr-only">

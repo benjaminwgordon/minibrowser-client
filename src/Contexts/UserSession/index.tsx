@@ -21,16 +21,16 @@ export interface IUserSession {
 
 export const AuthContext = createContext<IUserSession>({
   username: "",
-  updateUsername: () => {},
+  updateUsername: () => undefined,
   userId: -1,
-  updateUserId: () => {},
+  updateUserId: () => undefined,
   previousLocation: undefined,
-  updatePreviousLocation: () => {},
-  fetchUserData: () => {},
-  logout: () => {},
+  updatePreviousLocation: () => undefined,
+  fetchUserData: () => undefined,
+  logout: () => undefined,
 });
 
-export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
+export const AuthProvider = (props: React.PropsWithChildren<object>) => {
   const [username, setUsername] = useState<string>("");
   const [userId, setUserId] = useState<number>(-1);
   const [previousLocation, setPreviousLocation] = useState<Location>();
@@ -39,8 +39,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     const interval = setInterval(() => {
       authTokenRefresh<{ access_token: string }>("/auth/refreshToken")
         .then((res) => {
-          if (res && res.access_token !== "") {
-          } else {
+          if (!(res && res.access_token !== "")) {
             setUsername("");
             setUserId(-1);
           }
@@ -52,11 +51,11 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
     return () => clearInterval(interval);
   }, [userId]);
 
-  const updateUsername = (newUsername: string) => {
+  const updateUsername = (newUsername: string): void => {
     setUsername(newUsername);
   };
 
-  const updateUserId = (newUserId: number) => {
+  const updateUserId = (newUserId: number): void => {
     setUserId(newUserId);
   };
 
@@ -86,7 +85,7 @@ export const AuthProvider = (props: React.PropsWithChildren<{}>) => {
 
   const logout = () => {
     console.log("called logout");
-    get<any>("/auth/logout")
+    get<object>("/auth/logout")
       .then((res) => {
         console.log({ res });
       })

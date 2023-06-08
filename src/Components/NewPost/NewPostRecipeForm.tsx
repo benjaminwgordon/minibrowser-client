@@ -1,5 +1,5 @@
-import { ArrowLeftIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Dispatch, SetStateAction, useState } from "react";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { Dispatch, SetStateAction } from "react";
 import NewPostRecipe from "./NewPostRecipe";
 
 export interface IRecipe {

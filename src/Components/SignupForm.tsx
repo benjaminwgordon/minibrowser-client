@@ -1,7 +1,6 @@
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import post from "../API/Post";
 import postSignup from "../API/PostSignup";
 
 const SignupForm = () => {
@@ -9,7 +8,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   interface ISignup {
     username: string;

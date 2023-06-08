@@ -17,12 +17,12 @@ export class RequestError {
   }
 }
 
-export default async function postMultipart<BodyType, ReturnType extends {}>(
-  target: string,
-  body: BodyType
-): Promise<ReturnType> {
+export default async function postMultipart<
+  BodyType,
+  ReturnType extends object
+>(target: string, body: BodyType): Promise<ReturnType> {
   const multipartBody = new FormData();
-  for (let field in body) {
+  for (const field in body) {
     multipartBody.append(field, body[field] as string | Blob);
   }
 

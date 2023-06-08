@@ -17,8 +17,8 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  let { username } = useParams();
-  let auth = useContext(AuthContext);
+  const { username } = useParams();
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     setIsLoading(true);

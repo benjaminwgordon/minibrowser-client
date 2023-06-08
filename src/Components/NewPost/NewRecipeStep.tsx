@@ -1,5 +1,4 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
 import { IRecipeStep } from "./NewPostRecipeForm";
 
 interface INewRecipeStepProps {
