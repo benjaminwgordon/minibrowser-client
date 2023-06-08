@@ -27,7 +27,7 @@ const Feed = () => {
       request += `?tagId=${searchParams.get("tagId")}`;
       setIsTagRequest(true);
       const tagIdParam = searchParams.get("tagId");
-      if (typeof tagIdParam == "string") {
+      if (typeof tagIdParam === "string") {
         const tagIdInt = parseInt(tagIdParam);
         setTagId(tagIdInt);
       }
@@ -43,7 +43,7 @@ const Feed = () => {
       setIsSubscribedRequest(false);
     }
 
-    if (request.indexOf("?") == -1) {
+    if (request.indexOf("?") === -1) {
       request += "?";
     } else {
       request += "&";

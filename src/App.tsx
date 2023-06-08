@@ -9,12 +9,10 @@ import SignupForm from "./Components/SignupForm";
 import PrivateOutlet from "./Components/PrivateOutlet";
 import User from "./Components/User";
 import UserProfile from "./Components/UserProfile";
-import { useEffect } from "react";
 import "./App.css";
 import PostDetail from "./Components/PostDetail/PostDetail";
 import SignupConfirmation from "./Components/EmailValidation/SignupConfirmation";
 import EmailValidationSuccess from "./Components/EmailValidation/EmailValidationSuccess";
-import SidebarNav from "./Components/SidebarNav";
 import Nav from "./Components/Nav";
 import TopTags from "./Components/TopTags";
 

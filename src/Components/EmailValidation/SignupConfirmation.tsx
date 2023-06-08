@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import post from "../../API/Post";
-import { AuthContext } from "../../Contexts/UserSession";
 
 const SignupConfirmation = () => {
   const [validationCode, setValidationCode] = useState<string>("");
-  const auth = useContext(AuthContext);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
@@ -17,7 +15,7 @@ const SignupConfirmation = () => {
     } else {
       setEmail(paramEmail);
     }
-  }, []);
+  }, [navigate, searchParams]);
 
   const submitConfirmationForm = () => {
     post(`/auth/validateEmail`, {

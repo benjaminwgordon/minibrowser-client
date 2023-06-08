@@ -41,7 +41,7 @@ export default async function post<BodyType, ReturnType extends {}>(
   });
 
   if ("statusCode" in result) {
-    if (result.statusCode == 401) {
+    if (result.statusCode === 401) {
       console.log("user not authorized");
     }
     throw new RequestError(result.statusCode, result.message);
