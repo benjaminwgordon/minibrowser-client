@@ -13,7 +13,6 @@ const ImageUpload = (props: IImageUploadProps) => {
     if (event.target && event.target.files && event.target.files[0]) {
       props.setImage(event.target.files[0]);
       props.nextStep();
-      FileList;
     }
   };
 
